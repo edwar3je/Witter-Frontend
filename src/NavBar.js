@@ -30,8 +30,8 @@ const NavBar = ({ user, logOut }) => {
                     <NavLink className='nav-home' exact='true' to='/'>Witter</NavLink>
                 </div>
                 <div className='nav-right-container'>
-                    <NavLink className='nav-sign-up' exact='true' to='/sign-up'>Sign Up</NavLink>
-                    <NavLink className='nav-login' exact='true' to='/log-in'>Log In</NavLink>
+                    <NavLink className='nav-sign-up' exact='true' to='account/sign-up'>Sign Up</NavLink>
+                    <NavLink className='nav-login' exact='true' to='account/log-in'>Log In</NavLink>
                 </div>
             </div>
         )
@@ -45,7 +45,7 @@ const NavBar = ({ user, logOut }) => {
                     <NavLink className='nav-post-weet' exact='true' to='/weets/create'>Post Weet</NavLink>
                     <NavLink className='nav-my-feed' exact='true' to='/weets/'>My Feed</NavLink>
                     <NavLink className='nav-search-users' exact='true' to='/users/'>Search Users</NavLink>
-                    <NavLink className='nav-profile' exact='true' to={`/profile/${user}`}>Profile</NavLink>
+                    <NavLink className='nav-profile' exact='true' to={`/profile/${user.handle}`}>Profile</NavLink>
                     <button className='nav-log-out' onClick={logOutFull}>Log Out</button>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import jwt from 'jsonwebtoken';
+import { jwtDecode } from 'jwt-decode';
 import WitterApi from './api';
 import NavBar from './NavBar';
 import Home from './Home';
@@ -37,13 +37,13 @@ function App() {
    *  stored is saved to both the 'currentUser' state and localStorage.
    */
   
-  const signUp = async () => {
+  const signUp = async (data) => {
     let token = await WitterApi.signUp(data);
     setToken(token);
     localStorage.setItem('token', token);
-    let userData = jwt.decode(token);
+    let userData = jwtDecode(token);
     setCurrentUser(userData);
-    localStorage.setItem('user', userData);
+    localStorage.setItem('user', JSON.stringify(userData));
   };
 
   /** A function that is used when the log in form is submitted. Upon submission, the 'logIn' static method from the WitterApi class
@@ -52,13 +52,13 @@ function App() {
    *  is saved to both the 'currentUser' state and localStorage.
    */
 
-  const logIn = async () => {
+  const logIn = async (data) => {
     let token = await WitterApi.logIn(data);
     setToken(token);
     localStorage.setItem('token', token);
-    let userData = jwt.decode(token);
+    let userData = jwtDecode(token);
     setCurrentUser(userData);
-    localStorage.setItem('user', userData);
+    localStorage.setItem('user', JSON.stringify(userData));
   };
 
   /** A function that is used to log the user out of their account by changing both 'token' and 'currentUser' states back to their
@@ -68,9 +68,17 @@ function App() {
   const logOut = () => {
     setCurrentUser(initialState);
     setToken(initialState);
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem('user');
     localStorage.removeItem('token');
   };
+
+  /** A function that retrieves information on a given account's profile information. Requires a token to properly use.
+   */
+
+  const getProfile = async (handle, token) => {
+    let profile = await WitterApi.getProfile(handle, token);
+    return profile;
+  }
 
   /** A function that is used to check if the user is currently logged in even if the state of 'currentUser' is currently in its initial
    *  state. If there is any information stored in localStorage for 'currentUser', both the 'currentUser' and 'token' states are set to 
@@ -78,11 +86,12 @@ function App() {
    */
 
   const isAlreadyLoggedIn = () => {
-    if(localStorage.getItem('currentUser') && !currentUser){
-      const loggedInUser = localStorage.getItem('currentUser');
+    if(localStorage.getItem('user') && !currentUser){
+      const loggedInUser = localStorage.getItem('user');
       const loggedInToken = localStorage.getItem('token');
-      setCurrentUser(loggedInUser);
+      setCurrentUser(JSON.parse(loggedInUser));
       setToken(loggedInToken);
+      console.log('Logged in');
     }
   };
 
@@ -98,7 +107,7 @@ function App() {
             <Route exact='true' path='/' element={<Home user={currentUser} />} />
             <Route exact='true' path='/account/sign-up' element={<SignUpForm user={currentUser} signUp={signUp} />} />
             <Route exact='true' path='/account/log-in' element={<LogInForm user={currentUser} logIn={logIn} />} />
-            <Route exact='true' path='/profile/:handle' element={<ProfilePage user={currentUser} token={token} />} />
+            <Route exact='true' path='/profile/:handle' element={<ProfilePage user={currentUser} token={token} getProfile={getProfile}/>} />
             <Route exact='true' path='/profile/:handle/edit' element={<ProfileEditForm user={currentUser} token={token} />} />
             <Route exact='true' path='/profile/:handle/weets' element={<ProfileWeets user={currentUser} token={token} />} />
             <Route exact='true' path='/profile/:handle/reweets' element={<ProfileReweets user={currentUser} token={token} />} />
