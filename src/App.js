@@ -12,6 +12,8 @@ import ProfileWeets from './ProfileWeets';
 import ProfileReweets from './ProfileReweets';
 import ProfileFavorites from './ProfileFavorites';
 import ProfileTabs from './ProfileTabs';
+import ProfileFollowers from './ProfileFollowers';
+import ProfileFollowing from './ProfileFollowing';
 import SearchResults from './SearchResults';
 import Feed from './Feed';
 import NewWeetForm from './NewWeetForm';
@@ -80,6 +82,62 @@ function App() {
     return profile;
   }
 
+  /** A function that is used to edit a user's profile information.
+   */
+
+  const editProfile = async (handle, token, formData) => {
+    return 'editProfile';
+  }
+
+  /** A function that is used to retrieve an array of weets written by an account.
+   */
+
+  const getWeets = async (handle, token) => {
+    return 'getWeets'
+  }
+
+  /** A function that is used to retrieve an array of weets an account has reweeted.
+   */
+
+  const getReweets = async (handle, token) => {
+    return 'getReweets'
+  }
+
+  /** A function that is used to retrieve an array of weets an account has favorited.
+   */
+
+  const getFavorites = async (handle, token) => {
+    return 'getFavorites'
+  }
+
+  /** A function that is used to retrieve an array of weets an account has tabbed.
+   */
+
+  const getTabs = async (handle, token) => {
+    return 'getTabs'
+  };
+
+  /** A function that is used to retrieve an array of accounts that follow an account.
+   */
+
+  const getFollowers = async (handle, token) => {
+    return 'getFollowers';
+  };
+
+  /** A function that is used to retrieve an array of accounts an account is following.
+   */
+
+  const getFollowing = async (handle, token) => {
+    return 'getFollowing';
+  };
+
+  /** A function that is used to retrieve an array of weets that represents a user's feed.
+   */
+
+  const getFeed = async (handle, token) => {
+    return 'getFeed'
+  };
+
   /** A function that is used to check if the user is currently logged in even if the state of 'currentUser' is currently in its initial
    *  state. If there is any information stored in localStorage for 'currentUser', both the 'currentUser' and 'token' states are set to 
    *  any associated information within localStorage.
@@ -107,14 +165,16 @@ function App() {
             <Route exact='true' path='/' element={<Home user={currentUser} />} />
             <Route exact='true' path='/account/sign-up' element={<SignUpForm user={currentUser} signUp={signUp} />} />
             <Route exact='true' path='/account/log-in' element={<LogInForm user={currentUser} logIn={logIn} />} />
-            <Route exact='true' path='/profile/:handle' element={<ProfilePage user={currentUser} token={token} getProfile={getProfile}/>} />
-            <Route exact='true' path='/profile/:handle/edit' element={<ProfileEditForm user={currentUser} token={token} />} />
-            <Route exact='true' path='/profile/:handle/weets' element={<ProfileWeets user={currentUser} token={token} />} />
-            <Route exact='true' path='/profile/:handle/reweets' element={<ProfileReweets user={currentUser} token={token} />} />
-            <Route exact='true' path='/profile/:handle/favorites' element={<ProfileFavorites user={currentUser} token={token} />} />
-            <Route exact='true' path='/profile/:handle/tabs' element={<ProfileTabs user={currentUser} token={token} />} />
+            <Route exact='true' path='/profile/:handle' element={<ProfilePage user={currentUser} token={token} getProfile={getProfile} />} />
+            <Route exact='true' path='/profile/:handle/edit' element={<ProfileEditForm user={currentUser} token={token} getProfile={getProfile} editProfile={editProfile} />} />
+            <Route exact='true' path='/profile/:handle/weets' element={<ProfileWeets user={currentUser} token={token} getWeets={getWeets} />} />
+            <Route exact='true' path='/profile/:handle/reweets' element={<ProfileReweets user={currentUser} token={token} getReweets={getReweets} />} />
+            <Route exact='true' path='/profile/:handle/favorites' element={<ProfileFavorites user={currentUser} token={token} getFavorites={getFavorites} />} />
+            <Route exact='true' path='/profile/:handle/tabs' element={<ProfileTabs user={currentUser} token={token} getTabs={getTabs} />} />
+            <Route exact='true' path='/profile/:handle/followers' element={<ProfileFollowers user={currentUser} token={token} getFollowers={getFollowers} /> } />
+            <Route exact='true' path='/profile/:handle/following' element={<ProfileFollowing user={currentUser} token={token} getFollowing={getFollowing} /> } />
             <Route exact='true' path='/users/' element={<SearchResults user={currentUser} token={token} />} />
-            <Route exact='true' path='/weets/' element={<Feed user={currentUser} token={token} />} />
+            <Route exact='true' path='/weets/' element={<Feed user={currentUser} token={token} getFeed={getFeed} />} />
             <Route exact='true' path='/weets/create' element={<NewWeetForm user={currentUser} token={token} />} />
             <Route exact='true' path='/weets/:id' element={<Weet user={currentUser} token={token} />} />
             <Route exact='true' path='/weets/:id/edit' element={<WeetEditForm user={currentUser} token={token} />} />

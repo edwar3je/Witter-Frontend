@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './ProfileFavorites.css';
+import { useParams, useNavigate } from 'react-router-dom';
+import './ProfileFollowing.css';
 
-const ProfileFavorites = ({ user, token, getFavorites }) => {
-
+const ProfileFollowing = ({ user, token, getFollowing }) => {
+    
     const initialState = '';
     const [isLoading, setIsLoading] = useState(true);
+    
+    const { handle } = useParams();
 
     const navigate = useNavigate();
 
     useEffect(() => {
         if(token){
-            const fetchFavorites = async (handle, token) => {
+            const fetchFollowing = async (handle, token) => {
                 setIsLoading(false);
             }
-            fetchFavorites(user.handle, token)
+            fetchFollowing(user.handle, token)
         }
-    }, [token]);
+    }, [token])
 
     if(!localStorage.getItem(token)){
         return navigate('/')
@@ -31,8 +33,8 @@ const ProfileFavorites = ({ user, token, getFavorites }) => {
     }
 
     return (
-        <h1>You have reached the profile favorites</h1>
+        <h1>You have reached the following page for {handle}</h1>
     )
 };
 
-export default ProfileFavorites;
+export default ProfileFollowing;
