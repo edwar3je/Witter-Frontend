@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import './ProfilePage.css'
 
 const ProfilePage = ({ user, token, getProfile }) => {
@@ -77,7 +77,7 @@ const ProfilePage = ({ user, token, getProfile }) => {
     }
 
     if(!localStorage.getItem('token')){
-        return navigate('/');
+        navigate('/');
     }
 
     if(isLoading){

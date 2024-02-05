@@ -24,8 +24,8 @@ class WitterApi {
 
     static async logIn(formData) {
         try {
-            const { handle, username, password, email } = formData;
-            const result = await axios.post(`${BASE_URL}/account/log-in`, { handle: handle, username: username, password: password, email: email });
+            const { handle, password } = formData;
+            const result = await axios.post(`${BASE_URL}/account/log-in`, { handle: handle, password: password });
             return result.data.token;
         } catch (err) {
             console.error("API Error:", err.response);
@@ -39,8 +39,8 @@ class WitterApi {
 
     static async getProfile(handle, token) {
         try {
-            const result = await axios.get(`${BASE_URL}/profile/${handle}`, { _token: token });
-            return result.data;
+            const result = await axios.post(`${BASE_URL}/profile/${handle}`, { _token: token });
+            return result.data.user;
         } catch (err) {
             console.error("API Error:", err.response);
             let message = err.response.data.error.message;
@@ -81,87 +81,87 @@ class WitterApi {
     /** Returns an array of weets the account (handle) has written. Throws a 404 error if the account does not exist. 
     */
 
-    /*static async getWeets(handle, token) {
+    static async getWeets(handle, token) {
         try {
-            const result = await axios.get(`${BASE_URL}/profile/${handle}/weets`, { _token: token });
-            return result.data;
+            const result = await axios.post(`${BASE_URL}/profile/${handle}/weets`, { _token: token });
+            return result.data.result;
         } catch (err) {
             console.error("API Error:", err.response);
             let message = err.response.data.error.message;
             throw Array.isArray(message) ? message : [message];
         }
-    };*/
+    };
 
     /** Returns an array of weets the account (handle) has reweeted. Throws a 404 error if the account does not exist.
      */
 
-    /*static async getReweets(handle, token) {
+    static async getReweets(handle, token) {
         try {
-            const result = await axios.get(`${BASE_URL}/profile/${handle}/reweets`, { _token: token });
-            return result.data;
+            const result = await axios.post(`${BASE_URL}/profile/${handle}/reweets`, { _token: token });
+            return result.data.result;
         } catch (err) {
             console.error("API Error:", err.response);
             let message = err.response.data.error.message;
             throw Array.isArray(message) ? message : [message];
         }
-    };*/
+    };
 
     /** Returns an array of weets the account (handle) has favorited. Throws a 404 error if the account does not exist.
      */
 
-    /*static async getFavorites(handle, token) {
+    static async getFavorites(handle, token) {
         try {
-            const result = await axios.get(`${BASE_URL}/profile/${handle}/favorites`, { _token: token });
-            return result.data;
+            const result = await axios.post(`${BASE_URL}/profile/${handle}/favorites`, { _token: token });
+            return result.data.result;
         } catch (err) {
             console.error("API Error:", err.response);
             let message = err.response.data.error.message;
             throw Array.isArray(message) ? message : [message];
         }
-    };*/
+    };
 
     /** Returns an array of weets the account (handle) has tabbed. Throws a 404 error if the account does not exist. Throws a 401
      *  error if the user does not own the account.
      */
 
-    /*static async getTabs(handle, token) {
+    static async getTabs(handle, token) {
         try {
-            const result = await axios.get(`${BASE_URL}/profile/${handle}/tabs`, { _token: token });
-            return result.data;
+            const result = await axios.post(`${BASE_URL}/profile/${handle}/tabs`, { _token: token });
+            return result.data.result;
         } catch (err) {
             console.error("API Error:", err.response);
             let message = err.response.data.error.message;
             throw Array.isArray(message) ? message : [message];
         }
-    };*/
+    };
 
     /** Returns an array of accounts the account (handle) follows. Throws a 404 error if the account does not exist. 
     */
 
-    /*static async getFollowing(handle, token) {
+    static async getFollowing(handle, token) {
         try {
-            const result = await axios.get(`${BASE_URL}/profile/${handle}/following`, { _token: token });
-            return result.data;
+            const result = await axios.post(`${BASE_URL}/profile/${handle}/following`, { _token: token });
+            return result.data.result;
         } catch (err) {
             console.error("API Error:", err.response);
             let message = err.response.data.error.message;
             throw Array.isArray(message) ? message : [message];
         }
-    };*/
+    };
 
     /** Returns an array of accounts that are currently following the account (handle). Throws a 404 error if the account does not exist.
      */
 
-    /*static async getFollowers(handle, token) {
+    static async getFollowers(handle, token) {
         try {
-            const result = await axios.get(`${BASE_URL}/profile/${handle}/followers`, { _token: token });
-            return result.data;
+            const result = await axios.post(`${BASE_URL}/profile/${handle}/followers`, { _token: token });
+            return result.data.result;
         } catch (err) {
             console.error("API Error:", err.response);
             let message = err.response.data.error.message;
             throw Array.isArray(message) ? message : [message];
         }
-    };*/
+    };
 
     /** Returns an array of users that match a given search string provided (upon form submission). The results of the search string are 
      *  case insensitive, allowing for the maximum number of users to be returned.
@@ -212,44 +212,44 @@ class WitterApi {
      *  following.
      */
 
-    /*static async getFeed(token) {
+    static async getFeed(token) {
         try {
-            const result = await axios.get(`${BASE_URL}/weets/`, { _token: token });
-            return result.data;
+            const result = await axios.post(`${BASE_URL}/weets/feed`, { _token: token });
+            return result.data.result;
         } catch (err) {
             console.error("API Error:", err.response);
             let message = err.response.data.error.message;
             throw Array.isArray(message) ? message : [message];
         }
-    };*/
+    };
 
     /** Allows the current user to create/post a new weet (upon form submission).
     */
 
-    /*static async createWeet(token) {
+    static async createWeet(weet, token) {
         try {
-            const result = await axios.post(`${BASE_URL}/weets/`, { _token: token });
+            const result = await axios.post(`${BASE_URL}/weets/`, { _token: token, weet: weet });
             return result.data;
         } catch (err) {
             console.error("API Error:", err.response);
             let message = err.response.data.error.message;
             throw Array.isArray(message) ? message : [message];
         }
-    };*/
+    };
 
     /** Returns information on a given weet based on the weet id provided. Throws a 404 error if the weet does not exist.
      */
 
-    /*static async getWeet(id, token) {
+    static async getWeet(id, token) {
         try {
-            const result = await axios.get(`${BASE_URL}/weets/${id}`, { _token: token });
-            return result.data;
+            const result = await axios.post(`${BASE_URL}/weets/${id}`, { _token: token });
+            return result.data.result;
         } catch (err) {
             console.error("API Error:", err.response);
             let message = err.response.data.error.message;
             throw Array.isArray(message) ? message : [message];
         }
-    };*/
+    };
 
     /** Allows the user to edit a weet (upon form submission), assuming the user is the author of the weet. Throws a 404 error if the weet
      *  does not exist. Throws a 401 error if the user is not the author of the weet.

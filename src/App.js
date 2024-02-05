@@ -93,50 +93,65 @@ function App() {
    */
 
   const getWeets = async (handle, token) => {
-    return 'getWeets'
+    let weets = await WitterApi.getWeets(handle, token);
+    return weets;
   }
 
   /** A function that is used to retrieve an array of weets an account has reweeted.
    */
 
   const getReweets = async (handle, token) => {
-    return 'getReweets'
+    let reweets = await WitterApi.getReweets(handle, token);
+    return reweets;
   }
 
   /** A function that is used to retrieve an array of weets an account has favorited.
    */
 
   const getFavorites = async (handle, token) => {
-    return 'getFavorites'
+    let favorites = await WitterApi.getFavorites(handle, token);
+    return favorites;
   }
 
   /** A function that is used to retrieve an array of weets an account has tabbed.
    */
 
   const getTabs = async (handle, token) => {
-    return 'getTabs'
+    let tabs = await WitterApi.getTabs(handle, token);
+    return tabs;
   };
 
   /** A function that is used to retrieve an array of accounts that follow an account.
    */
 
   const getFollowers = async (handle, token) => {
-    return 'getFollowers';
+    let followers = await WitterApi.getFollowers(handle, token);
+    return followers;
   };
 
   /** A function that is used to retrieve an array of accounts an account is following.
    */
 
   const getFollowing = async (handle, token) => {
-    return 'getFollowing';
+    let following = await WitterApi.getFollowing(handle, token);
+    return following;
   };
 
   /** A function that is used to retrieve an array of weets that represents a user's feed.
    */
 
   const getFeed = async (handle, token) => {
-    return 'getFeed'
+    let feed = await WitterApi.getFeed(handle, token);
+    return feed;
   };
+
+  /** A function that is used to create a new weet and send the information to the backend.
+   */
+
+  const createWeet = async (weet, token) => {
+    await WitterApi.createWeet(weet, token);
+    return 'Witt succesfully created';
+  }
 
   /** A function that is used to check if the user is currently logged in even if the state of 'currentUser' is currently in its initial
    *  state. If there is any information stored in localStorage for 'currentUser', both the 'currentUser' and 'token' states are set to 
@@ -175,7 +190,7 @@ function App() {
             <Route exact='true' path='/profile/:handle/following' element={<ProfileFollowing user={currentUser} token={token} getFollowing={getFollowing} /> } />
             <Route exact='true' path='/users/' element={<SearchResults user={currentUser} token={token} />} />
             <Route exact='true' path='/weets/' element={<Feed user={currentUser} token={token} getFeed={getFeed} />} />
-            <Route exact='true' path='/weets/create' element={<NewWeetForm user={currentUser} token={token} />} />
+            <Route exact='true' path='/weets/create' element={<NewWeetForm user={currentUser} token={token} createWeet={createWeet} />} />
             <Route exact='true' path='/weets/:id' element={<Weet user={currentUser} token={token} />} />
             <Route exact='true' path='/weets/:id/edit' element={<WeetEditForm user={currentUser} token={token} />} />
             <Route path='*' element={<NotFound />} />
