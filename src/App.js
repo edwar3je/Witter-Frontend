@@ -145,6 +145,14 @@ function App() {
     return feed;
   };
 
+  /** A function that is used to retrieve a single weet based on the id provided.
+   */
+
+  const getWeet = async (id, token) => {
+    let weet = await WitterApi.getWeet(id, token);
+    return weet;
+  }
+
   /** A function that is used to create a new weet and send the information to the backend.
    */
 
@@ -191,7 +199,7 @@ function App() {
             <Route exact='true' path='/users/' element={<SearchResults user={currentUser} token={token} />} />
             <Route exact='true' path='/weets/' element={<Feed user={currentUser} token={token} getFeed={getFeed} />} />
             <Route exact='true' path='/weets/create' element={<NewWeetForm user={currentUser} token={token} createWeet={createWeet} />} />
-            <Route exact='true' path='/weets/:id' element={<Weet user={currentUser} token={token} />} />
+            <Route exact='true' path='/weets/:id' element={<Weet user={currentUser} token={token} getWeet={getWeet}/>} />
             <Route exact='true' path='/weets/:id/edit' element={<WeetEditForm user={currentUser} token={token} />} />
             <Route path='*' element={<NotFound />} />
           </Routes>

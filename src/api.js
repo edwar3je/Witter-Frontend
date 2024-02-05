@@ -286,7 +286,7 @@ class WitterApi {
      *  exist. Throws a 401 error if the user has already reweeted the weet. 
      */
 
-    /*static async reweet(id, token) {
+    static async reweet(id, token) {
         try {
             const result = await axios.post(`${BASE_URL}/weets/${id}/reweet`, { _token: token });
             return result.data;
@@ -295,13 +295,13 @@ class WitterApi {
             let message = err.response.data.error.message;
             throw Array.isArray(message) ? message : [message];
         }
-    };*/
+    };
 
     /** Allows the user to unreweet a weet (id) the user has previously reweeted. Throws a 404 error if the weet does not exist. Throws a 401
      *  error if the user has not reweeted the weet.
      */
 
-    /*static async unreweet(id, token) {
+    static async unreweet(id, token) {
         try {
             const result = await axios.post(`${BASE_URL}/weets/${id}/unreweet`, { _token: token });
             return result.data
@@ -310,13 +310,13 @@ class WitterApi {
             let message = err.response.data.error.message;
             throw Array.isArray(message) ? message : [message];
         }
-    };*/
+    };
 
     /** Allows the user to favorite a weet (id), assuming the user has not already favorited the weet. Throws a 404 error if the weet does not
      *  exist. Throws a 401 error if the user has already favorited the weet.
      */
 
-    /*static async favorite(id, token) {
+    static async favorite(id, token) {
         try {
             const result = await axios.post(`${BASE_URL}/weets/${id}/favorite`, { _token: token });
             return result.data;
@@ -325,13 +325,13 @@ class WitterApi {
             let message = err.response.data.error.message;
             throw Array.isArray(message) ? message : [message];
         }
-    };*/
+    };
 
     /** Allows the user to unfavorite a weet (id) the user has previously favorited. Throws a 404 error if the weet does not exist. Throws a
      *  401 error if the user has not favorited the weet.
      */
 
-    /*static async unfavorite(id, token) {
+    static async unfavorite(id, token) {
         try {
             const result = await axios.post(`${BASE_URL}/weets/${id}/unfavorite`, { _token: token });
             return result.data
@@ -340,13 +340,13 @@ class WitterApi {
             let message = err.response.data.error.message;
             throw Array.isArray(message) ? message : [message];
         }
-    };*/
+    };
 
     /** Allows the user to tab a weet (id), assuming the user has not already tabbed the weet. Throws a 404 error if the weet does not exist.
      *  Throws a 401 error if the user has already tabbed the weet.
      */
 
-    /*static async tab(id, token) {
+    static async tab(id, token) {
         try {
             const result = await axios.post(`${BASE_URL}/weets/${id}/tab`, { _token: token });
             return result.data;
@@ -355,13 +355,13 @@ class WitterApi {
             let message = err.response.data.error.message;
             throw Array.isArray(message) ? message : [message];
         }
-    };*/
+    };
 
     /** Allows the user to untab a weet (id) the user has previously tabbed. Throws a 404 error if the weet does not exist. Throws a 401 error
      *  if the user has not tabbed the weet.
      */
     
-    /*static async untab(id, token) {
+    static async untab(id, token) {
         try {
             const result = await axios.post(`${BASE_URL}/weets/${id}/untab`, { _token: token });
             return result.data;
@@ -370,7 +370,7 @@ class WitterApi {
             let message = err.response.data.error.message;
             throw Array.isArray(message) ? message : [message];
         }
-    };*/
+    };
 }
 
 export default WitterApi;

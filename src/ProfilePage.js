@@ -17,7 +17,7 @@ const ProfilePage = ({ user, token, getProfile }) => {
             const fetchProfile = async (handle, token) => {
                 const fetchedProfile = await getProfile(handle, token);
                 if(!fetchedProfile){
-                    return navigate('/NotFound');
+                    navigate('/NotFound');
                 }
                 setProfile(fetchedProfile);
                 setIsLoading(false);
@@ -88,9 +88,7 @@ const ProfilePage = ({ user, token, getProfile }) => {
         )
     }
 
-    return (
-        loadProfile(profile)
-    )
+    return loadProfile(profile);
 };
 
 export default ProfilePage;
