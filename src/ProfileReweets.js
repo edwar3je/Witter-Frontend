@@ -1,28 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
 import WeetCard from './WeetCard';
+import WitterApi from './api';
 import './ProfileReweets.css';
 
-const ProfileReweets = ({ user, token, getReweets }) => {
+const ProfileReweets = ({ user, token, handle }) => {
 
     const initialState = '';
     const [reweets, setReweets] = useState(initialState);
     const [isLoading, setIsLoading] = useState(true);
 
-    const { handle } = useParams();
-
-    const navigate = useNavigate();
-
     useEffect(() => {
-        if(!localStorage.getItem('token')){
-            navigate('/')
-        }
         const fetchReweets = async (handle, token) => {
-            const results = await getReweets(handle, token);
+            const results = await WitterApi.getReweets(handle, token);
             setReweets(results);
             setIsLoading(false);
         }
-        fetchReweets(handle, token).catch(console.error)
+        fetchWeets(handle, token).catch((error) => {
+            console.error(error)
+        });
     }, [token]);
     
     if(isLoading){
@@ -44,7 +39,7 @@ const ProfileReweets = ({ user, token, getReweets }) => {
     } else {
         return (
             <div>
-                <h1>It appears you don't have any reweeted weets.</h1>
+                <h1>This account does not have any reweeted weets.</h1>
             </div>
         )
     }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import UserCard from './UserCard';
 import './SearchResults.css';
 
 const SearchResults = ({ user, token }) => {

@@ -182,7 +182,7 @@ class WitterApi {
      *  Throws a 404 error if the other account does not exist. Throws a 403 error if the current user is already following the account.
     */
 
-    /*static async follow(handle, token) {
+    static async follow(handle, token) {
         try {
             const result = await axios.post(`${BASE_URL}/user/${handle}/follow`, { _token: token });
             return result.data;
@@ -191,13 +191,13 @@ class WitterApi {
             let message = err.response.data.error.message;
             throw Array.isArray(message) ? message : [message];
         }
-    };*/
+    };
 
     /** Allows the current user to unfollow another account (handle), assuming the user is currently following the other account.
      *  Throws a 404 error if the other account does not exist. Throws a 403 error if the current user is not currently following the account.
      */
 
-    /*static async unfollow(handle, token) {
+    static async unfollow(handle, token) {
         try {
             const result = await axios.post(`${BASE_URL}/user/${handle}/unfollow`, { _token: token });
             return result.data;
@@ -206,7 +206,7 @@ class WitterApi {
             let message = err.response.data.error.message;
             throw Array.isArray(message) ? message : [message];
         }
-    };*/
+    };
 
     /** Returns an array consisting of the current user's feed. The feed consists of weets from the user and accounts the user is currrently
      *  following.

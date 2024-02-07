@@ -1,29 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
 import WeetCard from './WeetCard';
+import WitterApi from './api';
 import './ProfileWeets.css';
 
-const ProfileWeets = ({ user, token, getWeets }) => {
+const ProfileWeets = ({ user, token, handle }) => {
     
     const initialState = '';
     const [weets, setWeets] = useState(initialState);
     const [isLoading, setIsLoading] = useState(true);
 
-    const { handle } = useParams();
-
-    const navigate = useNavigate();
-
     useEffect(() => {
-        if(!localStorage.getItem('token')){
-            console.log('failed localStorage check');
-            navigate('/');
-        }
         const fetchWeets = async (handle, token) => {
-            const results = await getWeets(handle, token);
+            const results = await WitterApi.getWeets(handle, token);
             setWeets(results);
             setIsLoading(false);
         }
-        fetchWeets(handle, token).catch(console.error)
+        fetchWeets(handle, token).catch((error) => {
+            console.error(error)
+        });
     }, [token]);
 
     if(isLoading){
@@ -45,7 +39,7 @@ const ProfileWeets = ({ user, token, getWeets }) => {
     } else {
         return (
             <div>
-                <h1>It appears you don't have any weets.</h1>
+                <h1>This account does not have any published weets.</h1>
             </div>
         )
     }

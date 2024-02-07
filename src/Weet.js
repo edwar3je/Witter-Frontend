@@ -15,7 +15,6 @@ const Weet = ({ user, token, getWeet }) => {
 
     useEffect(() => {
         if(!localStorage.getItem('token')){
-            console.log('failed localStorage check');
             navigate('/');
         }
         const fetchWeet = async (id, token) => {
@@ -23,7 +22,10 @@ const Weet = ({ user, token, getWeet }) => {
             setIndividualWeet(results);
             setIsLoading(false);
         }
-        fetchWeet(id, token).catch(console.error);
+        fetchWeet(id, token).catch((error) => {
+            console.error(error);
+            navigate('/NotFound');
+        });
     }, [token])
 
     if(isLoading){

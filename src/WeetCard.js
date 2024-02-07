@@ -17,7 +17,6 @@ const WeetCard = ({id, weet, author, date, time, stats, userInfo, checks, user, 
         await WitterApi.reweet(id, token);
         setIsReweeted(true);
         setReweetStat(reweetStat + 1);
-        console.log('weet reweeted');
     }
 
     const unreweet = async e => {
@@ -25,7 +24,6 @@ const WeetCard = ({id, weet, author, date, time, stats, userInfo, checks, user, 
         await WitterApi.unreweet(id, token);
         setIsReweeted(false);
         setReweetStat(reweetStat - 1);
-        console.log('weet unreweeted');
     }
     
     const reweetButton = () => {
@@ -51,7 +49,6 @@ const WeetCard = ({id, weet, author, date, time, stats, userInfo, checks, user, 
         await WitterApi.favorite(id, token);
         setIsFavorited(true);
         setFavoriteStat(favoriteStat + 1);
-        console.log('weet favorited');
     }
 
     const unfavorite = async e => {
@@ -59,7 +56,6 @@ const WeetCard = ({id, weet, author, date, time, stats, userInfo, checks, user, 
         await WitterApi.unfavorite(id, token);
         setIsFavorited(false);
         setFavoriteStat(favoriteStat - 1);
-        console.log('weet unfavorited');
     }
     
     const favoriteButton = () => {
@@ -85,7 +81,6 @@ const WeetCard = ({id, weet, author, date, time, stats, userInfo, checks, user, 
         await WitterApi.tab(id, token);
         setIsTabbed(true);
         setTabStat(tabStat + 1);
-        console.log('weet tabbed');
     }
 
     const untab = async e => {
@@ -93,7 +88,6 @@ const WeetCard = ({id, weet, author, date, time, stats, userInfo, checks, user, 
         await WitterApi.untab(id, token)
         setIsTabbed(false);
         setTabStat(tabStat - 1);
-        console.log('weet untabbed');
     }
 
     const tabButton = () => {

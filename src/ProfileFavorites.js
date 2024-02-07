@@ -1,28 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
 import WeetCard from './WeetCard';
+import WitterApi from './api';
 import './ProfileFavorites.css';
 
-const ProfileFavorites = ({ user, token, getFavorites }) => {
+const ProfileFavorites = ({ user, token, handle }) => {
 
     const initialState = '';
     const [favorites, setFavorites] = useState(initialState);
     const [isLoading, setIsLoading] = useState(true);
 
-    const { handle } = useParams();
-    
-    const navigate = useNavigate();
-
     useEffect(() => {
-        if(!localStorage.getItem('token')){
-            navigate('/')
-        }
         const fetchFavorites = async (handle, token) => {
-            const results = await getFavorites(handle, token);
+            const results = await WitterApi.getFavorites(handle, token);
             setFavorites(results);
             setIsLoading(false);
         }
-        fetchFavorites(handle, token).catch(console.error);
+        fetchWeets(handle, token).catch((error) => {
+            console.error(error)
+        });
     }, [token]);
 
     if(isLoading){
@@ -44,7 +39,7 @@ const ProfileFavorites = ({ user, token, getFavorites }) => {
     } else {
         return (
             <div>
-                <h1>It appears you don't have any favorited weets.</h1>
+                <h1>This account does not have any favorited weets.</h1>
             </div>
         )
     }

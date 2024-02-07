@@ -1,28 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
 import WeetCard from './WeetCard';
+import WitterApi from './api';
 import './ProfileTabs.css';
 
-const ProfileTabs = ({ user, token, getTabs }) => {
+const ProfileTabs = ({ user, token, handle }) => {
 
     const initialState = '';
     const [tabs, setTabs] = useState(initialState);
     const [isLoading, setIsLoading] = useState(true);
 
-    const { handle } = useParams();
-
-    const navigate = useNavigate();
-
     useEffect(() => {
-        if(!localStorage.getItem('token')){
-            navigate('/')
-        }
         const fetchTabs = async (handle, token) => {
-            const results = await getTabs(handle, token);
+            const results = await WitterApi.getTabs(handle, token);
             setTabs(results);
             setIsLoading(false);
         }
-        fetchTabs(handle, token).catch(console.error)
+        fetchWeets(handle, token).catch((error) => {
+            console.error(error)
+        });
     }, [token]);
 
     if(isLoading){
@@ -33,7 +28,7 @@ const ProfileTabs = ({ user, token, getTabs }) => {
         )
     }
 
-    if(user && user.handle !== handle){
+    if(user.handle !== handle){
         return (
             <h1>You are not allowed to view this page</h1>
         )
@@ -50,7 +45,7 @@ const ProfileTabs = ({ user, token, getTabs }) => {
     } else {
         return (
             <div>
-                <h1>It appears you don't have any tabbed weets.</h1>
+                <h1>This account does not have any tabbed weets.</h1>
             </div>
         )
     }
