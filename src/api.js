@@ -167,16 +167,16 @@ class WitterApi {
      *  case insensitive, allowing for the maximum number of users to be returned.
      */
 
-    /*static async searchUsers(search, token) {
+    static async searchUsers(searchString, token) {
         try {
-            const result = await axios.post(`${BASE_URL}/user/${search}`, { _token: token });
-            return result.data;
+            const result = await axios.post(`${BASE_URL}/users/${searchString}`, { _token: token });
+            return result.data.result;
         } catch (err) {
             console.error("API Error:", err.response);
             let message = err.response.data.error.message;
             throw Array.isArray(message) ? message : [message];
         }
-    };*/
+    };
 
     /** Allows the current user to follow another account (handle), assuming the user is not currently following the other account. 
      *  Throws a 404 error if the other account does not exist. Throws a 403 error if the current user is already following the account.
@@ -184,7 +184,7 @@ class WitterApi {
 
     static async follow(handle, token) {
         try {
-            const result = await axios.post(`${BASE_URL}/user/${handle}/follow`, { _token: token });
+            const result = await axios.post(`${BASE_URL}/users/${handle}/follow`, { _token: token });
             return result.data;
         } catch (err) {
             console.error("API Error:", err.response);
@@ -199,7 +199,7 @@ class WitterApi {
 
     static async unfollow(handle, token) {
         try {
-            const result = await axios.post(`${BASE_URL}/user/${handle}/unfollow`, { _token: token });
+            const result = await axios.post(`${BASE_URL}/users/${handle}/unfollow`, { _token: token });
             return result.data;
         } catch (err) {
             console.error("API Error:", err.response);

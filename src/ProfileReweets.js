@@ -15,10 +15,10 @@ const ProfileReweets = ({ user, token, handle }) => {
             setReweets(results);
             setIsLoading(false);
         }
-        fetchWeets(handle, token).catch((error) => {
+        fetchReweets(handle, token).catch((error) => {
             console.error(error)
         });
-    }, [token]);
+    }, [handle]);
     
     if(isLoading){
         return (

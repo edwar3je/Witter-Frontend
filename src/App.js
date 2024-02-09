@@ -8,7 +8,7 @@ import SignUpForm from './SignUpForm';
 import LogInForm from './LogInForm';
 import ProfilePage from './ProfilePage';
 import ProfileEditForm from './ProfileEditForm';
-import SearchResults from './SearchResults';
+import SearchPage from './SearchPage';
 import Feed from './Feed';
 import NewWeetForm from './NewWeetForm';
 import Weet from './Weet';
@@ -83,6 +83,14 @@ function App() {
     return 'editProfile';
   }
 
+  /** A function that retrieves information on accounts with usernames that match a given string. Requires a token to properly use.
+   */
+
+  const searchUsers = async (searchString, token) => {
+    let users = await WitterApi.searchUsers(searchString, token);
+    return users;
+  }
+
   /** A function that is used to retrieve an array of accounts that follow an account.
    */
 
@@ -151,7 +159,7 @@ function App() {
             <Route exact='true' path='/account/log-in' element={<LogInForm user={currentUser} logIn={logIn} />} />
             <Route exact='true' path='/profile/:handle' element={<ProfilePage user={currentUser} token={token} getProfile={getProfile} />} />
             <Route exact='true' path='/profile/:handle/edit' element={<ProfileEditForm user={currentUser} token={token} getProfile={getProfile} editProfile={editProfile} />} />
-            <Route exact='true' path='/users/' element={<SearchResults user={currentUser} token={token} />} />
+            <Route exact='true' path='/users/' element={<SearchPage user={currentUser} token={token} searchUsers={searchUsers} />} />
             <Route exact='true' path='/weets/' element={<Feed user={currentUser} token={token} getFeed={getFeed} />} />
             <Route exact='true' path='/weets/create' element={<NewWeetForm user={currentUser} token={token} createWeet={createWeet} />} />
             <Route exact='true' path='/weets/:id' element={<Weet user={currentUser} token={token} getWeet={getWeet}/>} />

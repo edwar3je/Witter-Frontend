@@ -4,6 +4,9 @@ import ProfileWeets from './ProfileWeets';
 import ProfileReweets from './ProfileReweets';
 import ProfileFavorites from './ProfileFavorites';
 import ProfileTabs from './ProfileTabs';
+import ProfileFollowers from './ProfileFollowers';
+import ProfileFollowing from './ProfileFollowing';
+import WitterApi from './api';
 import './ProfilePage.css'
 
 const ProfilePage = ({ user, token, getProfile }) => {
@@ -11,6 +14,7 @@ const ProfilePage = ({ user, token, getProfile }) => {
     const initialState = '';
     const [profile, setProfile] = useState(initialState);
     const [data, setData] = useState(initialState);
+    const [isFollowing, setIsFollowing] = useState(initialState);
     const [isLoading, setIsLoading] = useState(true);
 
     const { handle } = useParams();
@@ -23,6 +27,7 @@ const ProfilePage = ({ user, token, getProfile }) => {
                 const fetchedProfile = await getProfile(handle, token);
                 setProfile(fetchedProfile);
                 setData('weets');
+                setIsFollowing(fetchedProfile.followStatus.isFollower)
                 setIsLoading(false);
             }
             fetchProfile(handle, token).catch((error) => {
@@ -30,7 +35,7 @@ const ProfilePage = ({ user, token, getProfile }) => {
                 navigate('/NotFound');
             });
         }
-    }, [token]);
+    }, [handle]);
 
     const toWeets = e => {
         e.preventDefault();
@@ -62,7 +67,35 @@ const ProfilePage = ({ user, token, getProfile }) => {
         setData('following');
     }
 
-    const editButton = (user, handle) => {
+    // Might need await keyword since WitterApi.follow and WitterApi.unfollow are async
+
+    const follow = e => {
+        e.preventDefault();
+        WitterApi.follow(handle, token);
+        setIsFollowing(true);
+    }
+
+    const unfollow = e => {
+        e.preventDefault();
+        WitterApi.unfollow(handle, token);
+        setIsFollowing(false);
+    }
+
+    const followButton = () => {
+        if(user.handle !== handle){
+            if(isFollowing){
+                return (
+                    <button onClick={unfollow}>Unfollow</button>
+                )
+            } else {
+                return (
+                    <button onClick={follow}>Follow</button>
+                )
+            }
+        }
+    }
+
+    const editButton = () => {
         if(user.handle === handle){
             return (
                 <button>
@@ -72,7 +105,7 @@ const ProfilePage = ({ user, token, getProfile }) => {
         }
     }
 
-    const tabButton = (user, handle) => {
+    const tabButton = () => {
         if(user.handle === handle){
             return (
                 <button onClick={toTabs}>Tabs</button>
@@ -94,14 +127,16 @@ const ProfilePage = ({ user, token, getProfile }) => {
             return <ProfileTabs user={user} token={token} handle={handle} />
         }
         else if(data === 'followers'){
-            return (
+            return <ProfileFollowers user={user} token={token} handle={handle} />
+            /*return (
                 <h1>You have reached the followers page</h1>
-            )
+            )*/
         }
         else if(data === 'following'){
-            return (
+            return <ProfileFollowing user={user} token={token} handle={handle} />
+            /*return (
                 <h1>You have reached the following page</h1>
-            )
+            )*/
         }
     }
 
@@ -112,12 +147,13 @@ const ProfilePage = ({ user, token, getProfile }) => {
                 <h1>{username}</h1>
                 <h2>{handle}</h2>
                 <p>{user_description}</p>
-                {editButton(user, handle)}
+                {followButton()}
+                {editButton()}
                 <div className='link-container'>
                     <button onClick={toWeets}>Weets</button>
                     <button onClick={toReweets}>Reweets</button>
                     <button onClick={toFavorites}>Favorites</button>
-                    {tabButton(user, handle)}
+                    {tabButton()}
                     <button onClick={toFollowers}>Followers</button>
                     <button onClick={toFollowing}>Following</button>
                 </div>

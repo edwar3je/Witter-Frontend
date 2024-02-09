@@ -20,7 +20,7 @@ const UserCard = ({ handle, username, user_description, profile_image, banner_im
     }
 
     const loadFollowButton = () => {
-        if(handle === user.handle){
+        if(handle !== user.handle){
             if(isFollowed){
                 return (
                     <div className='button-container'>
@@ -38,14 +38,16 @@ const UserCard = ({ handle, username, user_description, profile_image, banner_im
     }
 
     return (
-        <div className='user-container'>
-            <div className='text-container'>
-                <h1>{username}</h1>
-                <h2>{handle}</h2>
-                <p>{user_description}</p>
+        <Link className='user-link' to={`/profile/${handle}`}>
+            <div className='user-container'>
+                <div className='text-container'>
+                    <h1>{username}</h1>
+                    <h2>{handle}</h2>
+                    <p>{user_description}</p>
+                </div>
+                {loadFollowButton()}
             </div>
-            {loadFollowButton()}
-        </div>
+        </Link>
     )
 }
 

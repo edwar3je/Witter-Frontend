@@ -15,10 +15,10 @@ const ProfileFavorites = ({ user, token, handle }) => {
             setFavorites(results);
             setIsLoading(false);
         }
-        fetchWeets(handle, token).catch((error) => {
+        fetchFavorites(handle, token).catch((error) => {
             console.error(error)
         });
-    }, [token]);
+    }, [handle]);
 
     if(isLoading){
         return (

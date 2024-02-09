@@ -1,28 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import UserCard from './UserCard';
+import WitterApi from './api';
 import './ProfileFollowers.css';
 
-const ProfileFollowers = ({ user, token, getFollowers }) => {
+const ProfileFollowers = ({ user, token, handle }) => {
 
     const initialState = '';
+    const [followers, setFollowers] = useState(initialState);
     const [isLoading, setIsLoading] = useState(true);
-    
-    const { handle } = useParams();
-
-    const navigate = useNavigate();
 
     useEffect(() => {
-        if(token){
-            const fetchFollowers = async (handle, token) => {
-                setIsLoading(false)
-            }
-            fetchFollowers(user.handle, token)
+        const fetchFollowers = async (handle, token) => {
+            const results = await WitterApi.getFollowers(handle, token);
+            setFollowers(results);
+            setIsLoading(false)
         }
-    }, [token])
-
-    if(!localStorage.getItem(token)){
-        return navigate('/')
-    }
+        fetchFollowers(handle, token).catch((error) => {
+            console.error(error)
+        });
+    }, [handle]);
 
     if(isLoading){
         return (
@@ -32,9 +28,21 @@ const ProfileFollowers = ({ user, token, getFollowers }) => {
         )
     }
 
-    return (
-        <h1>You have reached the followers of {handle}</h1>
-    )
+    if(followers.length >= 1){
+        return (
+            <div>
+                {followers.map(({handle, username, user_description, profile_image, banner_image, followStatus}) => {
+                    return <UserCard handle={handle} username={username} user_description={user_description} profile_image={profile_image} banner_image={banner_image} followStatus={followStatus} user={user} token={token} key={handle}/>
+                })}
+            </div>
+        )
+    } else {
+        return (
+            <div>
+                <h1>This account does not have any followers.</h1>
+            </div>
+        )
+    }
 };
 
 export default ProfileFollowers;

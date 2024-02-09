@@ -15,10 +15,10 @@ const ProfileTabs = ({ user, token, handle }) => {
             setTabs(results);
             setIsLoading(false);
         }
-        fetchWeets(handle, token).catch((error) => {
+        fetchTabs(handle, token).catch((error) => {
             console.error(error)
         });
-    }, [token]);
+    }, [handle]);
 
     if(isLoading){
         return (

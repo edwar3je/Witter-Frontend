@@ -18,7 +18,7 @@ const ProfileWeets = ({ user, token, handle }) => {
         fetchWeets(handle, token).catch((error) => {
             console.error(error)
         });
-    }, [token]);
+    }, [handle]);
 
     if(isLoading){
         return (
