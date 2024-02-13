@@ -27,6 +27,16 @@ function App() {
   const [currentUser, setCurrentUser] = useState(initialState);
   const [token, setToken] = useState(initialState);
 
+  /** Returns an object containing information on if information submitted for registering a new account is valid. Each key represents a
+   *  different piece of data submitted and each contains two keys: a boolean determining if the information submitted is valid and an
+   *  array of messages listing each error found.
+   */
+
+  const validateSignUp = async (handle, username, password, email) => {
+    const result = await WitterApi.validateSignUp(handle, username, password, email);
+    return result;
+  };
+
   /** A function that is used when the sign up (register) form is submitted. Upon submission, the 'signUp' static method from the
    *  WitterApi class is used to create a new account on the backend and return a json web token containing the new account information. 
    *  The token is then saved to the 'token' state and saved in localStorage. Additionally, the token is decoded and the information
@@ -76,11 +86,37 @@ function App() {
     return profile;
   }
 
+  /** Returns an object containing information on if information submitted for editing a profile is valid. Each key represents a
+   *  different piece of data submitted and each contains two keys: a boolean determining if the information submitted is valid and an
+   *  array of messages listing each error found.
+   */
+
+  const validateEditProfile = async (handle, token, formData) => {
+    const result = await WitterApi.validateEditProfile(handle, token, formData);
+    return result;
+  }
+
   /** A function that is used to edit a user's profile information.
    */
 
   const editProfile = async (handle, token, formData) => {
-    return 'editProfile';
+    const result = await WitterApi.editProfile(handle, token, formData);
+    setToken(result);
+    localStorage.setItem('token', result);
+    let userData = jwtDecode(result);
+    setCurrentUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
+  }
+
+  /** A function that is used to delete an account.
+   */
+
+  const deleteAccount = async (handle, token) => {
+    await WitterApi.deleteAccount(handle, token);
+    setCurrentUser(initialState);
+    setToken(initialState);
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
   }
 
   /** A function that retrieves information on accounts with usernames that match a given string. Requires a token to properly use.
@@ -90,22 +126,6 @@ function App() {
     let users = await WitterApi.searchUsers(searchString, token);
     return users;
   }
-
-  /** A function that is used to retrieve an array of accounts that follow an account.
-   */
-
-  /*const getFollowers = async (handle, token) => {
-    let followers = await WitterApi.getFollowers(handle, token);
-    return followers;
-  };*/
-
-  /** A function that is used to retrieve an array of accounts an account is following.
-   */
-
-  /*const getFollowing = async (handle, token) => {
-    let following = await WitterApi.getFollowing(handle, token);
-    return following;
-  };*/
 
   /** A function that is used to retrieve an array of weets that represents a user's feed.
    */
@@ -155,15 +175,15 @@ function App() {
         <main>
           <Routes>
             <Route exact='true' path='/' element={<Home user={currentUser} />} />
-            <Route exact='true' path='/account/sign-up' element={<SignUpForm user={currentUser} signUp={signUp} />} />
+            <Route exact='true' path='/account/sign-up' element={<SignUpForm user={currentUser} signUp={signUp} validateSignUp={validateSignUp} />} />
             <Route exact='true' path='/account/log-in' element={<LogInForm user={currentUser} logIn={logIn} />} />
             <Route exact='true' path='/profile/:handle' element={<ProfilePage user={currentUser} token={token} getProfile={getProfile} />} />
-            <Route exact='true' path='/profile/:handle/edit' element={<ProfileEditForm user={currentUser} token={token} getProfile={getProfile} editProfile={editProfile} />} />
+            <Route exact='true' path='/profile/:handle/edit' element={<ProfileEditForm user={currentUser} token={token} getProfile={getProfile} editProfile={editProfile} validateEditProfile={validateEditProfile} deleteAccount={deleteAccount} />} />
             <Route exact='true' path='/users/' element={<SearchPage user={currentUser} token={token} searchUsers={searchUsers} />} />
             <Route exact='true' path='/weets/' element={<Feed user={currentUser} token={token} getFeed={getFeed} />} />
             <Route exact='true' path='/weets/create' element={<NewWeetForm user={currentUser} token={token} createWeet={createWeet} />} />
-            <Route exact='true' path='/weets/:id' element={<Weet user={currentUser} token={token} getWeet={getWeet}/>} />
-            <Route exact='true' path='/weets/:id/edit' element={<WeetEditForm user={currentUser} token={token} />} />
+            <Route exact='true' path='/weets/:id' element={<Weet user={currentUser} token={token} getWeet={getWeet} />} />
+            <Route exact='true' path='/weets/:id/edit' element={<WeetEditForm user={currentUser} token={token} getWeet={getWeet} />} />
             <Route path='*' element={<NotFound />} />
           </Routes>
         </main>

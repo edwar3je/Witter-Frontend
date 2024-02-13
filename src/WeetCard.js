@@ -108,6 +108,16 @@ const WeetCard = ({id, weet, author, date, time, stats, userInfo, checks, user, 
         }
     }
 
+    const editButton = () => {
+        if(author === user.handle){
+            return (
+                <button>
+                    <Link to={`/weets/${id}/edit`}>Edit Weet</Link>
+                </button>
+            )
+        }
+    }
+
     if(setting = 'group'){
         return (
             <Link to={`/weets/${id}`}>
@@ -119,6 +129,7 @@ const WeetCard = ({id, weet, author, date, time, stats, userInfo, checks, user, 
                    </div>
                    <div className='weet-container'>
                       <p>{weet}</p>
+                      {editButton()}
                    </div>
                    <div className='buttons-container'>
                       {reweetButton()}
@@ -139,6 +150,7 @@ const WeetCard = ({id, weet, author, date, time, stats, userInfo, checks, user, 
                 </div>
                 <div className='weet-container'>
                     <p>{weet}</p>
+                    {editButton()}
                 </div>
                 <div className='buttons-container'>
                     {reweetButton()}

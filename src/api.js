@@ -3,6 +3,22 @@ import axios from 'axios';
 const BASE_URL = 'http://localhost:3000';
 
 class WitterApi {
+
+    /** Returns an object containing information on if information submitted for registering a new account is valid. Each key represents a
+     *  different piece of data submitted and each contains two keys: a boolean determining if the information submitted is valid and an
+     *  array of messages listing each error found.
+     */
+
+    static async validateSignUp(handle, username, password, email) {
+        try {
+            const result = await axios.post(`${BASE_URL}/validate/sign-up`, { handle: handle, username: username, password: password, email: email});
+            return result.data.result;
+        } catch (err) {
+            console.error("API Error:", err.response);
+            let message = err.response.data.error.message;
+            throw Array.isArray(message) ? message : [message];
+        }
+    }
     
     /** Registers a new account (upon form submission) and returns a json web token containing the user's account information.
      */
@@ -48,35 +64,52 @@ class WitterApi {
         }
     };
 
+    /** Returns an object containing information on if information submitted for editing a profile is valid. Each key represents a
+     *  different piece of data submitted and each contains two keys: a boolean determining if the information submitted is valid and an
+     *  array of messages listing each error found.
+     */
+
+    static async validateEditProfile(handle, token, formData) {
+        try {
+            const { username, oldPassword, newPassword, email, userDescription, profilePicture, bannerPicture } = formData;
+            const result = await axios.post(`${BASE_URL}/validate/update-profile/${handle}`, { _token: token, username: username, oldPassword: oldPassword, newPassword: newPassword, email: email, userDescription: userDescription, profilePicture: profilePicture, bannerPicture: bannerPicture });
+            return result.data.result;
+        } catch (err) {
+            console.error("API Error:", err.response);
+            let message = err.response.data.error.message;
+            throw Array.isArray(message) ? message : [message];
+        }
+    }
+
     /** Edits the profile information for a given account (upon form submission). Throws a 404 error if the account does not exist.
      *  Throws a 401 error if the user does not own the account.
      */
 
-    /*static async editProfile(handle, formData, token) {
+    static async editProfile(handle, token, formData) {
         try {
-            const { username, oldPassword, newPassword, email, userDescription, profilePicture, bannerPicture } = req.body;
+            const { username, oldPassword, newPassword, email, userDescription, profilePicture, bannerPicture } = formData;
             const result = await axios.put(`${BASE_URL}/profile/${handle}/edit`, { _token: token, username: username, oldPassword: oldPassword, newPassword: newPassword, email: email, userDescription: userDescription, profilePicture: profilePicture, bannerPicture: bannerPicture });
-            return result.data;
+            return result.data.token;
         } catch (err) {
             console.error("API Error:", err.response);
             let message = err.response.data.error.message;
             throw Array.isArray(message) ? message : [message];
         }
-    };*/
+    };
 
     /** Deletes an account. Throws a 404 error if the account does not exist. Throws a 401 error if the user does not own the account.
      */
 
-    /*static async deleteAccount(handle, token) {
+    static async deleteAccount(handle, token) {
         try {
-            const result = await axios.delete(`${BASE_URL}/profile/${handle}/edit`, { _token: token });
+            const result = await axios.delete(`${BASE_URL}/profile/${handle}/edit`, { data: { _token: token } });
             return result.data;
         } catch (err) {
             console.error("API Error:", err.response);
             let message = err.response.data.error.message;
             throw Array.isArray(message) ? message : [message];
         }
-    };*/
+    };
 
     /** Returns an array of weets the account (handle) has written. Throws a 404 error if the account does not exist. 
     */
@@ -255,7 +288,7 @@ class WitterApi {
      *  does not exist. Throws a 401 error if the user is not the author of the weet.
      */
 
-    /*static async editWeet(id, formData, token) {
+    static async editWeet(id, formData, token) {
         try {
             const { weet } = formData;
             const result = await axios.put(`${BASE_URL}/weets/${id}`, { _token: token, weet: weet });
@@ -265,22 +298,22 @@ class WitterApi {
             let message = err.response.data.error.message;
             throw Array.isArray(message) ? message : [message];
         }
-    };*/
+    };
 
     /** Allows the user to delete a weet, assuming the user is the author of the weet. Throws a 404 error if the weet does not exist. Throws
      *  a 401 error if the user is not the author of the weet.
      */
 
-    /*static async deleteWeet(id, token) {
+    static async deleteWeet(id, token) {
         try {
-            const result = await axios.delete(`${BASE_URL}/weets/${id}`, { _token: token });
+            const result = await axios.delete(`${BASE_URL}/weets/${id}`, { data: { _token: token } });
             return result.data;
         } catch (err) {
             console.error("API Error:", err.response);
             let message = err.response.data.error.message;
             throw Array.isArray(message) ? message : [message];
         }
-    };*/
+    };
 
     /** Allows the user to reweet a weet (id), assuming the user has not already reweeted the weet. Throws a 404 error if the weet does not
      *  exist. Throws a 401 error if the user has already reweeted the weet. 
