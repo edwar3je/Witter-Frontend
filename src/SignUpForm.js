@@ -53,7 +53,7 @@ const SignUpForm = ({ user, signUp, validateSignUp }) => {
                     setValidateObject(result);
                     setValidating(false);
                 } else {
-                    signUp(formData);
+                    await signUp(formData);
                     setFormData(initialState);
                     setValidateObject(initialValidObject);
                     setValidating(false);
@@ -72,49 +72,49 @@ const SignUpForm = ({ user, signUp, validateSignUp }) => {
     }
 
     const loadHandleErrors = () => {
-        if(!validateObject.handle.isValid){
+        if(!validateObject.handle.isValid && validateObject.handle.messages.length >= 1){
             return (
-                <>
+                <div className='errors-container'>
                     {validateObject.handle.messages.map((message) => {
                         return <ErrorMessage message={message} type={'handle'} remove={removeMessage} key={uuidv4()} />
                     })}
-                </>
+                </div>
             );
         }
     };
 
     const loadUsernameErrors = () => {
-        if(!validateObject.username.isValid){
+        if(!validateObject.username.isValid && validateObject.username.messages.length >= 1){
             return (
-                <>
+                <div className='errors-container'>
                     {validateObject.username.messages.map((message) => {
                         return <ErrorMessage message={message} type={'username'} remove={removeMessage} key={uuidv4()} />
                     })}
-                </>
+                </div>
             );
         }
     };
 
     const loadPasswordErrors = () => {
-        if(!validateObject.password.isValid){
+        if(!validateObject.password.isValid && validateObject.password.messages.length >= 1){
             return (
-                <>
+                <div className='errors-container'>
                     {validateObject.password.messages.map((message) => {
                         return <ErrorMessage message={message} type={'password'} remove={removeMessage} key={uuidv4()} />
                     })}
-                </>
+                </div>
             );
         }
     };
 
     const loadEmailErrors = () => {
-        if(!validateObject.email.isValid){
+        if(!validateObject.email.isValid && validateObject.password.messages.length >= 1){
             return (
-                <>
+                <div className='errors-container'>
                     {validateObject.email.messages.map((message) => {
                         return <ErrorMessage message={message} type={'email'} remove={removeMessage} key={uuidv4()} />
                     })}
-                </>
+                </div>
             );
         }
     };
@@ -140,25 +140,25 @@ const SignUpForm = ({ user, signUp, validateSignUp }) => {
                 <div>
                     <form className='sign-up-input-container' onSubmit={handleSubmit}>
                         <div className='sign-up-handle'>
-                            <label className='sign-up-handle' htmlFor='handle'>Handle</label>
+                            <label className='sign-up-label' htmlFor='handle'>Handle</label>
                             <input type='text' className='sign-up' id='handle' name='handle' value={formData.handle} onChange={handleChange}></input>
-                            {loadHandleErrors()}
                         </div>
+                        {loadHandleErrors()}
                         <div className='sign-up-username'>
-                            <label className='sign-up-username' htmlFor='username'>Username</label>
+                            <label className='sign-up-label' htmlFor='username'>Username</label>
                             <input type='text' className='sign-up' id='username' name='username' value={formData.username} onChange={handleChange}></input>
-                            {loadUsernameErrors()}
                         </div>
+                        {loadUsernameErrors()}
                         <div className='sign-up-password'>
-                            <label className='sign-up-password' htmlFor='password'>Password</label>
+                            <label className='sign-up-label' htmlFor='password'>Password</label>
                             <input type='password' className='sign-up' id='password' name='password' value={formData.password} onChange={handleChange}></input>
-                            {loadPasswordErrors()}
                         </div>
+                        {loadPasswordErrors()}
                         <div className='sign-up-email'>
-                            <label className='sign-up-email' htmlFor='email'>Email</label>
+                            <label className='sign-up-label' htmlFor='email'>Email</label>
                             <input type='text' className='sign-up' id='email' name='email' value={formData.email} onChange={handleChange}></input>
-                            {loadEmailErrors()}
                         </div>
+                        {loadEmailErrors()}
                         <button className='sign-up-submit'>Submit</button>
                     </form>
                 </div>

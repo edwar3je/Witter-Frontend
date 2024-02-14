@@ -1,0 +1,47 @@
+.home-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.home-welcome-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.home-welcome-container h1 {
+    font-size: 100px;
+}
+
+.home-welcome-container h2 {
+    font-size: 50px;
+}
+
+.home-button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+}
+
+.home-buttons {
+    background-color: #643b9f;
+    border-radius: 10px;
+    border: 2px solid #2d2d30;
+    padding: 5px;
+}
+
+.home-buttons:hover {
+    background-color: black;
+}
+
+.home-buttons-text {
+    font-size: 50px;
+    text-decoration: none;
+    color: white;
+}

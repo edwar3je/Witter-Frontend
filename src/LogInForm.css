@@ -1,0 +1,61 @@
+.log-in-general-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    background-color: #26282A;
+}
+
+.log-in-title {
+    font-size: 40px;
+    color: white;
+}
+
+.log-in-input-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+}
+
+.log-in-handle {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1em;
+}
+
+.log-in-password {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1em;
+}
+
+.log-in-submit {
+    background-color: #643B9F;
+    color: white;
+    font-size: 20px;
+    border-radius: 5px;
+    border: 2px solid black;
+}
+
+.log-in-label {
+    font-size: 20px;
+    color: white;
+}
+
+input.log-in {
+    height: 30px;
+    width: 250px;
+}
+
+.errors-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1em;
+}

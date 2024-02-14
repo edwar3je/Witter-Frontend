@@ -1,0 +1,111 @@
+.nav-container {
+    width: 100%;
+    background-color: #643b9f;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 40px;
+}
+
+.nav-left-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1em;
+    width: 50%;
+}
+
+.nav-home {
+    margin-left: 15px;
+    font-size: 20px;
+    color: white;
+    text-decoration: none;
+}
+
+.nav-home:hover {
+    color: black;
+}
+
+.nav-right-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1em;
+    width: 50%;
+}
+
+.nav-sign-up {
+    font-size: 20px;
+    color: white;
+    text-decoration: none;
+}
+
+.nav-sign-up:hover {
+    color: black;
+}
+
+.nav-login {
+    margin-right: 15px;
+    font-size: 20px;
+    color: white;
+    text-decoration: none;
+}
+
+.nav-login:hover {
+    color: black;
+}
+
+.nav-post-weet {
+    font-size: 20px;
+    color: white;
+    text-decoration: none;
+}
+
+.nav-post-weet:hover {
+    color: black;
+}
+
+.nav-my-feed {
+    font-size: 20px;
+    color: white;
+    text-decoration: none;
+}
+
+.nav-my-feed:hover {
+    color: black;
+}
+
+.nav-search-users {
+    font-size: 20px;
+    color: white;
+    text-decoration: none;
+}
+
+.nav-search-users:hover {
+    color: black;
+}
+
+.nav-profile {
+    font-size: 20px;
+    color: white;
+    text-decoration: none;
+}
+
+.nav-profile:hover {
+    color: black;
+}
+
+.nav-log-out {
+    margin-right: 15px;
+    font-size: 20px;
+    color: white;
+    border-width: 0;
+    background-color: transparent;
+    padding: 0;
+}
+
+.nav-log-out:hover {
+    color: black;
+}

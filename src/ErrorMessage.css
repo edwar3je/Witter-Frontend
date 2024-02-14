@@ -1,0 +1,23 @@
+.error-container {
+    display: flex;
+    width: fit-content;
+    height: 30px;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #FF3632
+}
+
+.error-container p {
+    margin-left: 5px;
+    font-size: 20px;
+    color: white;
+}
+
+.error-container button {
+    margin-right: 5px;
+    font-size: 20px;
+    color: white;
+    border-width: 0;
+    background-color: transparent;
+    padding: 0;
+}

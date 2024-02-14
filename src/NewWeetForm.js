@@ -1,14 +1,76 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
+import ErrorMessage from './ErrorMessage';
 import './NewWeetForm.css';
 
 const NewWeetForm = ({ user, token, createWeet }) => {
     
     const initialState = '';
 
-    const navigate = useNavigate();
+    const initialValidObject = {
+        weet: {
+            isValid: true,
+            messages: []
+        }
+    }
 
     const [weet, setWeet] = useState(initialState);
+    const [validateObject, setValidateObject] = useState(initialValidObject);
+    const [validating, setValidating] = useState(false);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if(validating){
+            const handleValidate = async () => {
+                let workingValidObject = initialValidObject;
+                if(weet === initialState || weet.length > 250){
+                    workingValidObject.weet.messages.push('A weet must be between 1 to 250 characters in length.')
+                }
+                const weetRegex1 = new RegExp(/^(?=.*\S).+$/);
+                const weetRegex2 = new RegExp(/^[^\s]/);
+                if(!weetRegex1.test(weet) || !weetRegex2.test(weet)){
+                    workingValidObject.weet.messages.push('A weet cannot consist of just blank spaces, nor start with a blank space.')
+                }
+                if(workingValidObject.weet.messages.length >= 1){
+                    workingValidObject.weet.isValid = false;
+                }
+                if(!workingValidObject.weet.isValid){
+                    setValidateObject(workingValidObject);
+                    setValidating(false);
+                } else {
+                    await createWeet(weet, token);
+                    setWeet(initialState);
+                    setValidateObject(workingValidObject);
+                    setValidating(false);
+                    navigate(`/profile/${user.handle}`)
+                }
+            }
+            handleValidate().catch((err) => {
+                console.error(err)
+            })
+        }
+    }, [validating, validateObject])
+
+    const removeMessage = (type, message) => {
+        let curValidObject = validateObject;
+        const delIndex = curValidObject[type].messages.indexOf(message);
+        curValidObject[type].messages.splice(delIndex, 1);
+        setValidateObject(curValidObject);
+    }
+
+    const loadWeetErrors = () => {
+        if(!validateObject.weet.isValid){
+            return (
+                <>
+                    {validateObject.weet.messages.map((message) => {
+                        return <ErrorMessage message={message} type={'weet'} remove={removeMessage} key={uuidv4()} />
+                    })}
+                </>
+            )
+        }
+    }
 
     const handleChange = e => {
         setWeet(e.target.value);
@@ -16,13 +78,14 @@ const NewWeetForm = ({ user, token, createWeet }) => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        if(weet === initialState || weet.length > 250){
+        setValidating(true);
+        /*if(weet === initialState || weet.length > 250){
             setWeet(initialState)
         } else {
             createWeet(weet, token);
             setWeet(initialState);
             navigate(`/profile/${user.handle}`);
-        }
+        }*/
     }
 
     if(!localStorage.getItem('token')){
@@ -39,6 +102,7 @@ const NewWeetForm = ({ user, token, createWeet }) => {
                     </div>
                     <button className='create-weet-submit'>Submit</button>
                 </form>
+                {loadWeetErrors()}
             </div>
         </div>
     );

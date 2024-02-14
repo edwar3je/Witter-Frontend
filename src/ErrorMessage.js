@@ -13,7 +13,7 @@ const ErrorMessage = ({ message, type, remove }) => {
 
     if(display){
         return (
-            <div>
+            <div className='error-container'>
                 <p>{message}</p>
                 <button onClick={removeMessage}>X</button>
             </div>

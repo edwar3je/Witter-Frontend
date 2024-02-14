@@ -37,7 +37,7 @@ const NavBar = ({ user, logOut }) => {
         )
     } else {
         return (
-            <div>
+            <div className='nav-container'>
                 <div className='nav-left-container'>
                     <NavLink className='nav-home' exact='true' to='/'>Witter</NavLink>
                 </div>
