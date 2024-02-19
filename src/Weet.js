@@ -41,7 +41,7 @@ const Weet = ({ user, token, getWeet }) => {
     } else {
         const { id, weet, author, date, time, stats, userInfo, checks } = individualWeet;
         return (
-            <div>
+            <div className='single-weet-page-container'>
                 <WeetCard id={id} weet={weet} author={author} date={date} time={time} stats={stats} userInfo={userInfo} checks={checks} user={user} token={token} setting={'single'} key={id} />
             </div>
         )

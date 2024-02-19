@@ -29,26 +29,35 @@ const SearchPage = ({ user, token, searchUsers }) => {
         if(users !== ''){
             if(users.length >= 1){
                 return (
-                    <div>
-                        {users.map(({handle, username, user_description, profile_image, banner_image, followStatus}) => {
-                            return <UserCard handle={handle} username={username} user_description={user_description} profile_image={profile_image} banner_image={banner_image} followStatus={followStatus} user={user} token={token} key={handle}/>
-                        })}
-                    </div>
+                    <>
+                        <hr></hr>
+                        <div className='users-container'>
+                            {users.map(({handle, username, user_description, profile_image, banner_image, followStatus}) => {
+                                return <UserCard handle={handle} username={username} user_description={user_description} profile_image={profile_image} banner_image={banner_image} followStatus={followStatus} user={user} token={token} key={handle}/>
+                            })}
+                        </div>
+                    </>
                 )
             }
             return (
-                <div>
-                    <h1>There are no accounts with a username matching {searchString}</h1>
-                </div>
+                <>
+                    <hr></hr>
+                    <div className='user-notice-container'>
+                        <h1>There are no accounts with a username matching {searchString}</h1>
+                    </div>
+                </>
             );
         }
     }
     
     return (
-        <div>
-            <SearchForm user={user} token={token} fetchUsers={fetchUsers} />
+        <div className='main-search-page-container'>
+            <div className='search-page-container'>
+                <SearchForm user={user} token={token} fetchUsers={fetchUsers} />
+            </div>
             {loadSearchResults()}
         </div>
+        
     )
 };
 

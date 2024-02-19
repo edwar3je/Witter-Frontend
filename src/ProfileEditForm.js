@@ -119,11 +119,11 @@ const ProfileEditForm = ({ user, token, getProfile, editProfile, validateEditPro
     const loadUsernameErrors = () => {
         if(!validateObject.username.isValid){
             return (
-                <>
+                <div className='errors-container'>
                     {validateObject.username.messages.map((message) => {
                         return <ErrorMessage message={message} type={'username'} remove={removeMessage} key={uuidv4()} />
                     })}
-                </>
+                </div>
             );
         }
     }
@@ -131,11 +131,11 @@ const ProfileEditForm = ({ user, token, getProfile, editProfile, validateEditPro
     const loadOldPasswordErrors = () => {
         if(!validateObject.oldPassword.isValid){
             return (
-                <>
+                <div className='errors-container'>
                     {validateObject.oldPassword.messages.map((message) => {
                         return <ErrorMessage message={message} type={'oldPassword'} remove={removeMessage} key={uuidv4()} />
                     })}
-                </>
+                </div>
             );
         }
     }
@@ -145,11 +145,11 @@ const ProfileEditForm = ({ user, token, getProfile, editProfile, validateEditPro
     const loadNewPasswordErrors = () => {
         if(validateObject.newPassword && !validateObject.newPassword.isValid){
             return (
-                <>
+                <div className='errors-container'>
                     {validateObject.newPassword.messages.map((message) => {
                         return <ErrorMessage message={message} type={'newPassword'} remove={removeMessage} key={uuidv4()} />
                     })}
-                </>
+                </div>
             );
         }
     }
@@ -157,11 +157,11 @@ const ProfileEditForm = ({ user, token, getProfile, editProfile, validateEditPro
     const loadEmailErrors = () => {
         if(!validateObject.email.isValid){
             return (
-                <>
+                <div className='errors-container'>
                     {validateObject.email.messages.map((message) => {
                         return <ErrorMessage message={message} type={'email'} remove={removeMessage} key={uuidv4()} />
                     })}
-                </>
+                </div>
             );
         }
     }
@@ -169,11 +169,11 @@ const ProfileEditForm = ({ user, token, getProfile, editProfile, validateEditPro
     const loadUserDescriptionErrors = () => {
         if(!validateObject.userDescription.isValid){
             return (
-                <>
+                <div className='errors-container'>
                     {validateObject.userDescription.messages.map((message) => {
                         return <ErrorMessage message={message} type={'userDescription'} remove={removeMessage} key={uuidv4()} />
                     })}
-                </>
+                </div>
             );
         }
     }
@@ -181,11 +181,11 @@ const ProfileEditForm = ({ user, token, getProfile, editProfile, validateEditPro
     const loadProfilePictureErrors = () => {
         if(!validateObject.profilePicture.isValid){
             return (
-                <>
+                <div className='errors-container'>
                     {validateObject.profilePicture.messages.map((message) => {
                         return <ErrorMessage message={message} type={'profilePicture'} remove={removeMessage} key={uuidv4()} />
                     })}
-                </>
+                </div>
             );
         }
     }
@@ -193,11 +193,11 @@ const ProfileEditForm = ({ user, token, getProfile, editProfile, validateEditPro
     const loadBannerPictureErrors = () => {
         if(!validateObject.bannerPicture.isValid){
             return (
-                <>
+                <div className='errors-container'>
                     {validateObject.profilePicture.messages.map((message) => {
                         return <ErrorMessage message={message} type={'bannerPicture'} remove={removeMessage} key={uuidv4()} />
                     })}
-                </>
+                </div>
             );
         }
     }
@@ -232,15 +232,15 @@ const ProfileEditForm = ({ user, token, getProfile, editProfile, validateEditPro
     const loadDeleteOptions = () => {
         if(!displayDelete){
             return (
-                <div>
-                    <button onClick={handleInitialDelete}>Delete my account</button>
+                <div className='edit-profile-delete-container'>
+                    <button className='edit-profile-init-delete' onClick={handleInitialDelete}>Delete my account</button>
                 </div>
             )
         } else {
             return(
-                <div>
-                    <button onClick={handleDeleteYes}>Yes, please delete my account</button>
-                    <button onClick={handleDeleteNo}>No, do not delete my account</button>
+                <div className='edit-profile-delete-container'>
+                    <button className='edit-profile-yes-delete' onClick={handleDeleteYes}>Yes, please delete my account</button>
+                    <button className='edit-profile-no-delete' onClick={handleDeleteNo}>No, do not delete my account</button>
                 </div>
             )
         }
@@ -263,49 +263,157 @@ const ProfileEditForm = ({ user, token, getProfile, editProfile, validateEditPro
     }
     
     return (
-        <div className='profile-edit-general-container'>
-            <h2 className='edit-profile-title'>Edit Profile</h2>
-            <div>
-                <form className='edit-profile-input-container' onSubmit={handleSubmit}>
-                    <div className='edit-profile-username'>
-                        <label className='edit-profile-username' htmlFor='username'>Username</label>
-                        <input type='text' className='edit-profile' id='username' name='username' value={formData.username} onChange={handleChange}></input>
-                        {loadUsernameErrors()}
-                    </div>
-                    <div className='edit-profile-oldPassword'>
-                        <label className='edit-profile-oldPassword' htmlFor='oldPassword'>Current Password</label>
-                        <input type='password' className='edit-profile' id='oldPassword' name='oldPassword' value={formData.oldPassword} onChange={handleChange}></input>
-                        {loadOldPasswordErrors()}
-                    </div>
-                    <div className='edit-profile-newPassword'>
-                        <label className='edit-profile-newPassword' htmlFor='newPassword'>New Password {'(optional)'}</label>
-                        <input type='password' className='edit-profile' id='newPassword' name='newPassword' value={formData.newPassword} onChange={handleChange}></input>
-                        {loadNewPasswordErrors()}
-                    </div>
-                    <div className='edit-profile-email'>
-                        <label className='edit-profile-email' htmlFor='email'>Email</label>
-                        <input type='text' className='edit-profile' id='email' name='email' value={formData.email} onChange={handleChange}></input>
-                        {loadEmailErrors()}
-                    </div>
-                    <div className='edit-profile-userDescription'>
-                        <label className='edit-profile-userDescription' htmlFor='userDescription'>User Description</label>
-                        <input type='text' className='edit-profile' id='userDescription' name='userDescription' value={formData.userDescription} onChange={handleChange}></input>
-                        {loadUserDescriptionErrors()}
-                    </div>
-                    <div className='edit-profile-profilePicture'>
-                        <label className='edit-profile-profilePicture' htmlFor='profilePicture'>Profile Picture</label>
-                        <input type='text' className='edit-profile' id='profilePicture' name='profilePicture' value={formData.profilePicture} onChange={handleChange}></input>
-                        {loadProfilePictureErrors()}
-                    </div>
-                    <div className='edit-profile-bannerPicture'>
-                        <label className='edit-profile-bannerPicture' htmlFor='bannerPicture'>Banner Picture</label>
-                        <input type='text' className='edit-profile' id='bannerPicture' name='bannerPicture' value={formData.bannerPicture} onChange={handleChange}></input>
-                        {loadBannerPictureErrors()}
-                    </div>
-                    <button className='edit-profile-submit'>Submit</button>
-                </form>
+        /*<div>
+            <div className='profile-edit-general-container'>
+                <h2 className='edit-profile-title'>Edit Profile</h2>
+                <div>
+                    <form className='edit-profile-input-container' onSubmit={handleSubmit}>
+                        <div className='edit-profile-username'>
+                            <label className='edit-profile-username' htmlFor='username'>Username</label>
+                            <input type='text' className='edit-profile' id='username' name='username' value={formData.username} onChange={handleChange}></input>
+                            {loadUsernameErrors()}
+                        </div>
+                        <div className='edit-profile-oldPassword'>
+                            <label className='edit-profile-oldPassword' htmlFor='oldPassword'>Current Password</label>
+                            <input type='password' className='edit-profile' id='oldPassword' name='oldPassword' value={formData.oldPassword} onChange={handleChange}></input>
+                            {loadOldPasswordErrors()}
+                        </div>
+                        <div className='edit-profile-newPassword'>
+                            <label className='edit-profile-newPassword' htmlFor='newPassword'>New Password {'(optional)'}</label>
+                            <input type='password' className='edit-profile' id='newPassword' name='newPassword' value={formData.newPassword} onChange={handleChange}></input>
+                            {loadNewPasswordErrors()}
+                        </div>
+                        <div className='edit-profile-email'>
+                            <label className='edit-profile-email' htmlFor='email'>Email</label>
+                            <input type='text' className='edit-profile' id='email' name='email' value={formData.email} onChange={handleChange}></input>
+                            {loadEmailErrors()}
+                        </div>
+                        <div className='edit-profile-userDescription'>
+                            <label className='edit-profile-userDescription' htmlFor='userDescription'>User Description</label>
+                            <input type='text' className='edit-profile' id='userDescription' name='userDescription' value={formData.userDescription} onChange={handleChange}></input>
+                            {loadUserDescriptionErrors()}
+                        </div>
+                        <div className='edit-profile-profilePicture'>
+                            <label className='edit-profile-profilePicture' htmlFor='profilePicture'>Profile Picture</label>
+                            <input type='text' className='edit-profile' id='profilePicture' name='profilePicture' value={formData.profilePicture} onChange={handleChange}></input>
+                            {loadProfilePictureErrors()}
+                        </div>
+                        <div className='edit-profile-bannerPicture'>
+                            <label className='edit-profile-bannerPicture' htmlFor='bannerPicture'>Banner Picture</label>
+                            <input type='text' className='edit-profile' id='bannerPicture' name='bannerPicture' value={formData.bannerPicture} onChange={handleChange}></input>
+                            {loadBannerPictureErrors()}
+                        </div>
+                        <button className='edit-profile-submit'>Submit</button>
+                    </form>
+                </div>
+                {loadDeleteOptions()}
             </div>
-            {loadDeleteOptions()}
+        </div>*/
+        <div className='edit-profile-page-container'>
+            <div className='edit-profile-general-container'>
+
+                <div className='edit-profile-title-container'>
+                    <h2 className='edit-profile-title'>Edit Profile</h2>
+                </div>
+
+                {loadDeleteOptions()}
+
+                <form className='edit-profile-general-input-container' onSubmit={handleSubmit}>
+                    <div className='edit-profile-input-container'>
+                        <div className='edit-profile-input-left-container'>
+                            
+                            <div className='edit-profile-username'>
+                                <div className='edit-profile-left-container'>
+                                    <label className='edit-profile' htmlFor='username'>Username</label>
+                                    <div className='filler'></div>
+                                </div>
+                                <div className='edit-profile-right-container'>
+                                    <input type='text' className='edit-profile' id='username' name='username' value={formData.username} onChange={handleChange}></input>
+                                    {loadUsernameErrors()}
+                                </div>  
+                            </div>
+
+                            <div className='edit-profile-oldPassword'>
+                                <div className='edit-profile-left-container'>
+                                    <label className='edit-profile' htmlFor='oldPassword'>{'Current Password (required)'}</label>
+                                    <div className='filler'></div>
+                                </div>
+                                <div className='edit-profile-right-container'>
+                                    <input type='password' className='edit-profile' id='oldPassword' name='oldPassword' value={formData.oldPassword} onChange={handleChange}></input>
+                                    {loadOldPasswordErrors()}
+                                </div>
+                            </div>
+
+                            <div className='edit-profile-profilePicture'>
+                                <div className='edit-profile-left-container'>
+                                    <label className='edit-profile' htmlFor='profilePicture'>Profile Picture</label>
+                                    <div className='filler'></div>
+                                </div>
+                                <div className='edit-profile-right-container'>
+                                    <textarea className='edit-profile' id='profilePicture' name='profilePicture' value={formData.profilePicture} onChange={handleChange}></textarea>
+                                    {loadProfilePictureErrors()}
+                                </div>
+                            </div>
+
+                            <div className='edit-profile-userDescription'>
+                                <div className='edit-profile-left-container'>
+                                    <label className='edit-profile' htmlFor='userDescription'>User Description</label>
+                                    <div className='filler'></div>
+                                </div>
+                                <div className='edit-profile-right-container'>
+                                    <textarea className='edit-profile' id='userDescription' name='userDescription' value={formData.userDescription} onChange={handleChange}></textarea>
+                                    {loadUserDescriptionErrors()}
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div className='edit-profile-input-right-container'>
+                            
+                            <div className='edit-profile-email'>
+                                <div className='edit-profile-left-container'>
+                                    <label className='edit-profile' htmlFor='email'>Email</label>
+                                    <div className='filler'></div>
+                                </div>
+                                <div className='edit-profile-right-container'>
+                                    <input type='text' className='edit-profile' id='email' name='email' value={formData.email} onChange={handleChange}></input>
+                                    {loadEmailErrors()}
+                                </div>
+                            </div>
+
+                            <div className='edit-profile-newPassword'>
+                                <div className='edit-profile-left-container'>
+                                    <label className='edit-profile' htmlFor='newPassword'>New Password {'(optional)'}</label>
+                                    <div className='filler'></div>
+                                </div>
+                                <div className='edit-profile-right-container'>
+                                    <input type='password' className='edit-profile' id='newPassword' name='newPassword' value={formData.newPassword} onChange={handleChange}></input>
+                                    {loadNewPasswordErrors()}
+                                </div>
+                            </div>
+
+                            <div className='edit-profile-bannerPicture'>
+                                <div className='edit-profile-left-container'>
+                                    <label className='edit-profile' htmlFor='bannerPicture'>Banner Picture</label>
+                                    <div className='filler'></div>
+                                </div>
+                                <div className='edit-profile-right-container'>
+                                    <textarea className='edit-profile' id='bannerPicture' name='bannerPicture' value={formData.bannerPicture} onChange={handleChange}></textarea>
+                                    {loadBannerPictureErrors()}
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div className='edit-profile-button-container'>
+                        <button className='edit-profile-submit'>Submit</button>
+                    </div>
+                    
+                </form>
+
+            </div>
+
         </div>
     )
 };

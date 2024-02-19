@@ -1,14 +1,17 @@
 .error-container {
     display: flex;
-    width: fit-content;
-    height: 30px;
-    justify-content: flex-start;
-    align-items: center;
-    background-color: #FF3632
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: #ff4f4b;
+    border-radius: 10px;
+    gap: 5px;
 }
 
-.error-container p {
-    margin-left: 5px;
+.error-message-container {
+    max-width: 250px;
+}
+
+.error-message-container p {
     font-size: 20px;
     color: white;
 }
@@ -20,4 +23,9 @@
     border-width: 0;
     background-color: transparent;
     padding: 0;
+}
+
+.error-button-container button:hover {
+    color: black;
+    cursor: pointer;
 }

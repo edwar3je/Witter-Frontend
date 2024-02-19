@@ -30,7 +30,7 @@ const ProfileReweets = ({ user, token, handle }) => {
 
     if(reweets.length >= 1){
         return (
-            <div>
+            <div className='reweets-container'>
                 {reweets.map(({ id, weet, author, date, time, stats, userInfo, checks }) => {
                     return <WeetCard id={id} weet={weet} author={author} date={date} time={time} stats={stats} userInfo={userInfo} checks={checks} user={user} token={token} setting={'group'} key={id} />
                 })}
@@ -38,7 +38,7 @@ const ProfileReweets = ({ user, token, handle }) => {
         )
     } else {
         return (
-            <div>
+            <div className='reweets-special-notice'>
                 <h1>This account does not have any reweeted weets.</h1>
             </div>
         )

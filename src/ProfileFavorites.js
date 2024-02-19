@@ -30,7 +30,7 @@ const ProfileFavorites = ({ user, token, handle }) => {
 
     if(favorites.length >= 1){
         return (
-            <div className='weets-container'>
+            <div className='favorites-container'>
                 {favorites.map(({ id, weet, author, date, time, stats, userInfo, checks }) => {
                     return <WeetCard id={id} weet={weet} author={author} date={date} time={time} stats={stats} userInfo={userInfo} checks={checks} user={user} token={token} setting={'group'} key={id} />
                 })}
@@ -38,7 +38,7 @@ const ProfileFavorites = ({ user, token, handle }) => {
         )
     } else {
         return (
-            <div>
+            <div className='favorites-special-notice'>
                 <h1>This account does not have any favorited weets.</h1>
             </div>
         )

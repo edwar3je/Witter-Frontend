@@ -1,0 +1,301 @@
+/* Group weet styles */
+
+.weet-link-container {
+    text-decoration: none;
+}
+
+.group-weet-main-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 800px;
+    height: fit-content;
+    background-color: #424549;
+    border-radius: 10px;
+}
+
+.group-weet-left-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 75px;
+    height: 75px;
+}
+
+.group-weet-right-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 75px;
+}
+
+.group-weet-profile-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.group-weet-profile-image-container img {
+    height: 50px;
+    width: 50px;
+}
+
+.group-weet-user-info-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 75px;
+    width: 725px;
+    margin-top: 10px;
+    height: 30px;
+}
+
+.group-weet-info {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 75px;
+    gap: 5px;
+    min-width: 655px;
+}
+
+.group-weet-info p {
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    font-size: 15px;
+    color: #7f7f7f;
+}
+
+.group-weet-username {
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+}
+
+.group-weet-handle {
+    text-decoration: none;
+    font-size: 15px;
+    color: #7f7f7f;
+}
+
+.group-weet-edit-link-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 60px;
+}
+
+.group-weet-weet-container {
+    width: 690px;
+    height: fit-content;
+}
+
+.group-weet-weet-container p {
+    font-size: 15px;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    color: white;
+}
+
+.group-weet-buttons-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 715px;
+}
+
+/* Single weet styles */
+
+.single-weet-main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 800px;
+    height: fit-content;
+    background-color: #424549;
+    border-radius: 10px;
+    gap: 10px;
+}
+
+.single-weet-user-info-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.single-weet-weet-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 760px;
+    height: fit-content;
+    margin-left: 10px;
+}
+
+.single-weet-time-date-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 10px;
+    gap: 5px;
+}
+
+.single-weet-buttons-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 775px;
+    margin-left: 10px;
+}
+
+.single-weet-profile-image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    overflow: hidden;
+}
+
+.single-weet-profile-image-container img {
+    height: 50px;
+    width: 50px;
+}
+
+.single-weet-user-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: center;
+    align-items: flex-start;
+    width: 665px;
+}
+
+.single-weet-username {
+    text-decoration: none;
+    margin-left: 5px;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.single-weet-handle {
+    text-decoration: none;
+    margin-left: 5px;
+    color: #7f7f7f;
+    font-size: 15px;
+}
+
+.single-weet-edit-link-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 60px;
+}
+
+.single-weet-weet-container p {
+    font-size: 15px;
+    margin-block-start: 0em;
+    margin-block-end:0em;
+    color: white;
+}
+
+.single-weet-time-date-container p {
+    font-size: 15px;
+    margin-block-start: 0em;
+    margin-block-end:0em;
+    color: #7f7f7f;
+}
+
+/* Shared styles */
+
+.weet-edit-link {
+    text-decoration: none;
+}
+
+p.stat {
+    font-size: 15px;
+    color: #7f7f7f;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+}
+
+.changeable-button-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+}
+
+.reweet-button {
+    border-width: 0;
+    background-color: transparent;
+    padding: 0;
+}
+
+.reweet-button:hover {
+    cursor: pointer;
+}
+
+.unreweet-button {
+    border-width: 0;
+    background-color: transparent;
+    padding: 0;
+}
+
+.unreweet-button:hover {
+    cursor: pointer;
+}
+
+.favorite-button {
+    border-width: 0;
+    background-color: transparent;
+    padding: 0;
+}
+
+.favorite-button:hover {
+    cursor: pointer;
+}
+
+.unfavorite-button {
+    border-width: 0;
+    background-color: transparent;
+    padding: 0;
+}
+
+.unfavorite-button:hover {
+    cursor: pointer;
+}
+
+.tab-button {
+    border-width: 0;
+    background-color: transparent;
+    padding: 0;
+}
+
+.tab-button:hover {
+    cursor: pointer;
+}
+
+.untab-button {
+    border-width: 0;
+    background-color: transparent;
+    padding: 0;
+}
+
+.untab-button:hover {
+    cursor: pointer;
+}

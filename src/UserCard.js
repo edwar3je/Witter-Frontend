@@ -23,29 +23,31 @@ const UserCard = ({ handle, username, user_description, profile_image, banner_im
         if(handle !== user.handle){
             if(isFollowed){
                 return (
-                    <div className='button-container'>
-                        <button onClick={unfollow}>Unfollow</button>
-                    </div>
+                    <button className='user-card-unfollow-button' onClick={unfollow}>Following</button>
                 )
             } else {
                 return (
-                    <div className='button-container'>
-                        <button onClick={follow}>Follow</button>
-                    </div>
+                    <button className='user-card-follow-button' onClick={follow}>Follow</button>
                 )
             }
         }
     }
 
     return (
-        <Link className='user-link' to={`/profile/${handle}`}>
-            <div className='user-container'>
-                <div className='text-container'>
-                    <h1>{username}</h1>
-                    <h2>{handle}</h2>
-                    <p>{user_description}</p>
+        <Link className='user-card-link' to={`/profile/${handle}`}>
+            <div className='main-user-card-container'>
+                <div className='left-user-card-container'>
+                    <div className='profile-image-container'>
+                        <img src={profile_image}></img>
+                    </div>
                 </div>
-                {loadFollowButton()}
+                <div className='center-user-card-container'>
+                    <p>{username}</p>
+                    <small>{`@${handle}`}</small>
+                </div>
+                <div className='right-user-card-container'>
+                    {loadFollowButton()}
+                </div>
             </div>
         </Link>
     )

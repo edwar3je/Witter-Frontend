@@ -73,16 +73,44 @@ const LogInForm = ({ user, logIn }) => {
     const handleSubmit = e => {
         e.preventDefault();
         setValidating(true);
-        /*logIn(formData);
-        setFormData(initialState);
-        navigate('/');*/
     };
 
     if(user){
         return navigate('/');
     } else {
         return (
-            <div className='log-in-general-container'>
+            <div className='page-container'>
+                <div className='log-in-general-container'>
+                    <div className='log-in-title-container'>
+                        <h2>Log In</h2>
+                    </div>
+                    <form className='log-in-input-container' onSubmit={handleSubmit}>
+                        <div className='log-in'>
+                            <div className='input-left-container'>
+                                <label className='log-in-label' htmlFor='handle'>Handle</label>
+                                <div class='filler'></div>
+                            </div>
+                            <div className='input-right-container'>
+                                <input type='text' className='log-in' name='handle' value={formData.handle} onChange={handleChange}></input>
+                            </div>
+                        </div>
+                        <div className='log-in'>
+                            <div className='input-left-container'>
+                                <label className='log-in-label' htmlFor='password'>Password</label>
+                                <div class='filler'></div>
+                            </div>
+                            <div className='input-right-container'>
+                                <input type='password' className='log-in' name='password' value={formData.password} onChange={handleChange}></input>
+                                {loadSignUpError()}
+                            </div>
+                        </div>
+                        <div className='button-container'>
+                            <button className='log-in-submit'>Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            /*<div className='log-in-general-container'>
                 <h2 className='log-in-title'>Log In</h2>
                 <div>
                     <form className='log-in-input-container' onSubmit={handleSubmit}>
@@ -98,7 +126,7 @@ const LogInForm = ({ user, logIn }) => {
                         <button className='log-in-submit'>Submit</button>
                     </form>
                 </div>
-            </div>
+            </div>*/
         );
     };
 };

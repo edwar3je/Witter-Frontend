@@ -63,11 +63,11 @@ const NewWeetForm = ({ user, token, createWeet }) => {
     const loadWeetErrors = () => {
         if(!validateObject.weet.isValid){
             return (
-                <>
+                <div className='errors-container'>
                     {validateObject.weet.messages.map((message) => {
                         return <ErrorMessage message={message} type={'weet'} remove={removeMessage} key={uuidv4()} />
                     })}
-                </>
+                </div>
             )
         }
     }
@@ -79,13 +79,6 @@ const NewWeetForm = ({ user, token, createWeet }) => {
     const handleSubmit = e => {
         e.preventDefault();
         setValidating(true);
-        /*if(weet === initialState || weet.length > 250){
-            setWeet(initialState)
-        } else {
-            createWeet(weet, token);
-            setWeet(initialState);
-            navigate(`/profile/${user.handle}`);
-        }*/
     }
 
     if(!localStorage.getItem('token')){
@@ -93,16 +86,20 @@ const NewWeetForm = ({ user, token, createWeet }) => {
     }
     
     return (
-        <div className='create-weet-general-container'>
-            <h2 className='create-weet-title'>Create Weet</h2>
-            <div>
+        <div className='page-container'>
+            <div className='create-weet-general-container'>
+                <div className='create-weet-title-container'>
+                    <h2 className='create-weet-title'>Create Weet</h2>
+                </div>
                 <form className='create-weet-input-container' onSubmit={handleSubmit}>
                     <div className='create-weet-weet'>
-                        <input type='text' className='weet' name='weet' value={weet} onChange={handleChange}></input>
+                        <textarea className='weet' name='weet' value={weet} onChange={handleChange}></textarea>
+                        {loadWeetErrors()}
                     </div>
-                    <button className='create-weet-submit'>Submit</button>
+                    <div className='button-container'>
+                        <button className='create-weet-submit'>Submit</button>
+                    </div>
                 </form>
-                {loadWeetErrors()}
             </div>
         </div>
     );

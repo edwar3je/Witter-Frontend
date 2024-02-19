@@ -30,7 +30,7 @@ const ProfileFollowers = ({ user, token, handle }) => {
 
     if(followers.length >= 1){
         return (
-            <div>
+            <div className='profile-followers-container'>
                 {followers.map(({handle, username, user_description, profile_image, banner_image, followStatus}) => {
                     return <UserCard handle={handle} username={username} user_description={user_description} profile_image={profile_image} banner_image={banner_image} followStatus={followStatus} user={user} token={token} key={handle}/>
                 })}
@@ -38,7 +38,7 @@ const ProfileFollowers = ({ user, token, handle }) => {
         )
     } else {
         return (
-            <div>
+            <div className='profile-followers-notice'>
                 <h1>This account does not have any followers.</h1>
             </div>
         )

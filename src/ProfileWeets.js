@@ -38,7 +38,7 @@ const ProfileWeets = ({ user, token, handle }) => {
         )
     } else {
         return (
-            <div>
+            <div className='weets-special-notice'>
                 <h1>This account does not have any published weets.</h1>
             </div>
         )

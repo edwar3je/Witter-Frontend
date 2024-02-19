@@ -73,13 +73,6 @@ const WeetEditForm = ({ user, token, getWeet }) => {
             handleEdit().catch((error) => {
                 console.error(error)
             });
-            /*const handleEdit = async () => {
-                await WitterApi.editWeet(id, formData, token);
-                navigate(`/weets/${id}`);
-            }
-            handleEdit().catch((error) => {
-                console.error(error)
-            });*/
         }
         else if(deleting){
             const handleDelete = async () => {
@@ -102,11 +95,11 @@ const WeetEditForm = ({ user, token, getWeet }) => {
     const loadWeetErrors = () => {
         if(!validateObject.weet.isValid){
             return (
-                <>
+                <div className='errors-container'>
                     {validateObject.weet.messages.map((message) => {
                         return <ErrorMessage message={message} type={'weet'} remove={removeMessage} key={uuidv4()} />
                     })}
-                </>
+                </div>
             )
         }
     }
@@ -141,15 +134,15 @@ const WeetEditForm = ({ user, token, getWeet }) => {
     const loadDeleteOptions = () => {
         if(!displayDelete){
             return (
-                <div>
-                    <button onClick={handleInitialDelete}>Delete my weet</button>
+                <div className='delete-options-container'>
+                    <button className='init-delete-button' onClick={handleInitialDelete}>Delete my weet</button>
                 </div>
             )
         } else {
             return (
-                <div>
-                    <button onClick={handleDeleteYes}>Yes, please delete my weet</button>
-                    <button onClick={handleDeleteNo}>No, do not delete my weet</button>
+                <div className='delete-options-container'>
+                    <button className='yes-delete-button' onClick={handleDeleteYes}>Yes, please delete my weet</button>
+                    <button className='no-delete-button' onClick={handleDeleteNo}>No, do not delete my weet</button>
                 </div>
             )
         }
@@ -168,13 +161,22 @@ const WeetEditForm = ({ user, token, getWeet }) => {
     }
     
     return (
-        <div>
-            <form className='edit-weet-input-container' onSubmit={handleSubmit}>
-                <input type='text' className='edit-weet' id='weet' name='weet' value={formData.weet} onChange={handleChange}></input>
-                <button>Submit</button>
-            </form>
-            {loadWeetErrors()}
-            {loadDeleteOptions()}
+        <div className='page-container'>
+            <div className='edit-weet-general-container'>
+                <div className='edit-weet-title-container'>
+                    <h2 className='edit-weet-title'>Edit Weet</h2>
+                </div>
+                <form className='edit-weet-input-container' onSubmit={handleSubmit}>
+                    {loadDeleteOptions()}
+                    <div className='edit-weet-weet'>
+                        <textarea className='edit-weet' id='weet' name='weet' value={formData.weet} onChange={handleChange}></textarea>
+                        {loadWeetErrors()}
+                    </div>
+                    <div className='button-container'>
+                        <button className='edit-weet-submit'>Submit</button>
+                    </div>
+                </form>
+            </div>
         </div>
     )
 };

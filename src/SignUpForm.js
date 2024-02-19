@@ -135,31 +135,61 @@ const SignUpForm = ({ user, signUp, validateSignUp }) => {
         return navigate('/');
     } else {
         return (
-            <div className='sign-up-general-container'>
-                <h2 className='sign-up-title'>Sign Up</h2>
-                <div>
+            <div className='page-container'>
+                <div className='sign-up-general-container'>
+                    <div className='sign-up-title-container'>
+                        <h2 className='sign-up-title'>Sign Up</h2>
+                    </div>
                     <form className='sign-up-input-container' onSubmit={handleSubmit}>
-                        <div className='sign-up-handle'>
-                            <label className='sign-up-label' htmlFor='handle'>Handle</label>
-                            <input type='text' className='sign-up' id='handle' name='handle' value={formData.handle} onChange={handleChange}></input>
+
+                        <div className='sign-up'>
+                            <div className='input-left-container'>
+                                <label className='sign-up-label' htmlFor='handle'>Handle</label>
+                                <div className='filler'></div>
+                            </div>
+                            <div className='input-right-container'>
+                                <input type='text' className='sign-up' id='handle' name='handle' value={formData.handle} onChange={handleChange}></input>
+                                {loadHandleErrors()}
+                            </div>
                         </div>
-                        {loadHandleErrors()}
-                        <div className='sign-up-username'>
-                            <label className='sign-up-label' htmlFor='username'>Username</label>
-                            <input type='text' className='sign-up' id='username' name='username' value={formData.username} onChange={handleChange}></input>
+
+                        <div className='sign-up'>
+                            <div className='input-left-container'>
+                                <label className='sign-up-label' htmlFor='username'>Username</label>
+                                <div className='filler'></div>
+                            </div>
+                            <div className='input-right-container'>
+                                <input type='text' className='sign-up' id='username' name='username' value={formData.username} onChange={handleChange}></input>
+                                {loadUsernameErrors()}
+                            </div>
                         </div>
-                        {loadUsernameErrors()}
-                        <div className='sign-up-password'>
-                            <label className='sign-up-label' htmlFor='password'>Password</label>
-                            <input type='password' className='sign-up' id='password' name='password' value={formData.password} onChange={handleChange}></input>
+
+                        <div className='sign-up'>
+                            <div className='input-left-container'>
+                                <label className='sign-up-label' htmlFor='password'>Password</label>
+                                <div className='filler'></div>
+                            </div>
+                            <div className='input-right-container'>
+                                <input type='password' className='sign-up' id='password' name='password' value={formData.password} onChange={handleChange}></input>
+                                {loadPasswordErrors()}
+                            </div>
                         </div>
-                        {loadPasswordErrors()}
-                        <div className='sign-up-email'>
-                            <label className='sign-up-label' htmlFor='email'>Email</label>
-                            <input type='text' className='sign-up' id='email' name='email' value={formData.email} onChange={handleChange}></input>
+
+                        <div className='sign-up'>
+                            <div className='input-left-container'>
+                                <label className='sign-up-label' htmlFor='email'>Email</label>
+                                <div className='filler'></div>
+                            </div>
+                            <div className='input-right-container'>
+                                <input type='text' className='sign-up' id='email' name='email' value={formData.email} onChange={handleChange}></input>
+                                {loadEmailErrors()}
+                            </div>
                         </div>
-                        {loadEmailErrors()}
-                        <button className='sign-up-submit'>Submit</button>
+
+                        <div className='button-container'>
+                            <button className='sign-up-submit'>Submit</button>
+                        </div>
+                        
                     </form>
                 </div>
             </div>

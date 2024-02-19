@@ -12,26 +12,30 @@ const Home = ({ user }) => {
     
     if(!user){
         return (
-            <div className='home-container'>
-                <div className='home-welcome-container'>
-                    <h1>Welcome to Witter!</h1>
-                    <h2>A twitter clone.</h2>
-                </div>
-                <div className='home-button-container'>
-                    <button className='home-buttons'>
-                        <Link className='home-buttons-text' exact='true' to='/account/sign-up'>Sign up</Link>
-                    </button>
-                    <button className='home-buttons'>
-                        <Link className='home-buttons-text' exact='true' to='/account/log-in'>Log in</Link>
-                    </button>
+            <div className='page-container'>
+                <div className='home-container'>
+                    <div className='home-welcome-container'>
+                        <h1>Welcome to Witter!</h1>
+                        <h2>A twitter clone.</h2>
+                    </div>
+                    <div className='home-button-container'>
+                        <button className='home-buttons'>
+                            <Link className='home-buttons-text' exact='true' to='/account/sign-up'>Sign up</Link>
+                        </button>
+                        <button className='home-buttons'>
+                            <Link className='home-buttons-text' exact='true' to='/account/log-in'>Log in</Link>
+                        </button>
+                    </div>
                 </div>
             </div>
         )
     } else {
         return (
-            <div className='home-container'>
-                <div className='home-welcome-container'>
-                    <h1>Welcome back {user.username}!</h1>
+            <div className='page-container'>
+                <div className='home-container'>
+                    <div className='home-welcome-container'>
+                        <h1>Welcome back {user.username}!</h1>
+                    </div>
                 </div>
             </div>
         )

@@ -36,7 +36,7 @@ const ProfileTabs = ({ user, token, handle }) => {
 
     if(tabs.length >= 1){
         return (
-            <div className='weets-container'>
+            <div className='tabs-container'>
                 {tabs.map(({ id, weet, author, date, time, stats, userInfo, checks }) => {
                     return <WeetCard id={id} weet={weet} author={author} date={date} time={time} stats={stats} userInfo={userInfo} checks={checks} user={user} token={token} setting={'group'} key={id} />
                 })}
@@ -44,7 +44,7 @@ const ProfileTabs = ({ user, token, handle }) => {
         )
     } else {
         return (
-            <div>
+            <div className='tabs-special-notice'>
                 <h1>This account does not have any tabbed weets.</h1>
             </div>
         )

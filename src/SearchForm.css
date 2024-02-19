@@ -1,0 +1,25 @@
+.search-form-input-container {
+    display: flex;
+    border-radius: 10px;
+    min-width: 270px;
+    background-color: #424549;
+}
+
+input.search {
+    font-size: 20px;
+    color: white;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border: 2px solid #424549;
+    background-color: transparent;
+}
+
+button.search {
+    border-width: 0;
+    background-color: transparent;
+    padding: 0;
+}
+
+button.search:hover {
+    cursor: pointer;
+}

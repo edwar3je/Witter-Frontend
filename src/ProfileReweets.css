@@ -1,0 +1,22 @@
+.reweets-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    width: 800px;
+}
+
+.reweets-special-notice {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 800px;
+}
+
+.reweets-special-notice h1 {
+    font-size: 40px;
+    color: white;
+    text-align: center;
+}

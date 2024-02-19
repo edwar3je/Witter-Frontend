@@ -1,0 +1,22 @@
+.profile-following-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 800px;
+    height: fit-content;
+    gap: 10px;
+}
+
+.profile-following-notice {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 800px;
+}
+
+.profile-following-notice h1 {
+    font-size: 40px;
+    color: white;
+    text-align: center;
+}

@@ -38,7 +38,7 @@ const Feed = ({ user, token, getFeed }) => {
 
     if(weets.length >= 1){
         return (
-            <div className='weets-container'>
+            <div className='weets-feed-container'>
                     {weets.map(({ id, weet, author, date, time, stats, userInfo, checks }) => {
                         return <WeetCard id={id} weet={weet} author={author} date={date} time={time} stats={stats} userInfo={userInfo} checks={checks} user={user} token={token} setting={'group'} key={id} />
                     })}

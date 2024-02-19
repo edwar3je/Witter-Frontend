@@ -1,0 +1,137 @@
+.page-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.edit-weet-general-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    background-color: #36393e;
+    margin-top: 20px;
+    height: fit-content;
+    width: 400px;
+    border-radius: 10px;
+}
+
+.edit-weet-title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.edit-weet-title-container h2 {
+    font-size: 40px;
+    color: white;
+}
+
+.edit-weet-input-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 1em;
+    width: 100%;
+    height: fit-content;
+}
+
+.delete-options-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    height: fit-content;
+}
+
+.delete-options-container button:hover {
+    background-color: black;
+    cursor: pointer;
+}
+
+.init-delete-button {
+    background-color: #ff4f4b;
+    color: white;
+    font-size: 20px;
+    border: 2px solid #36393e;
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+.yes-delete-button {
+    background-color: #865bd9;
+    color: white;
+    font-size: 20px;
+    border: 2px solid #36393e;
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+.no-delete-button {
+    background-color: #ff4f4b;
+    color: white;
+    font-size: 20px;
+    border: 2px solid #36393e;
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+.edit-weet-weet {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 1em;
+    margin-left: 20px;
+}
+
+.edit-weet-weet textarea {
+    height: 110px;
+    width: 350px;
+    border-radius: 10px;
+    border: 2px solid #424549;
+    color: white;
+    background-color: #424549;
+    text-align: left;
+    resize: none;
+    font-size: 15px;
+}
+
+.errors-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    width: 100%;
+}
+
+.button-container button {
+    background-color: #865bd9;
+    color: white;
+    font-size: 20px;
+    border: 2px solid #36393e;
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+.button-container button:hover {
+    background-color: black;
+    cursor: pointer;
+}

@@ -1,6 +1,6 @@
 .nav-container {
     width: 100%;
-    background-color: #643b9f;
+    background-color: #865bd9;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -108,4 +108,5 @@
 
 .nav-log-out:hover {
     color: black;
+    cursor: pointer;
 }

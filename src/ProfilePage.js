@@ -67,8 +67,6 @@ const ProfilePage = ({ user, token, getProfile }) => {
         setData('following');
     }
 
-    // Might need await keyword since WitterApi.follow and WitterApi.unfollow are async
-
     const follow = e => {
         e.preventDefault();
         WitterApi.follow(handle, token);
@@ -85,11 +83,11 @@ const ProfilePage = ({ user, token, getProfile }) => {
         if(user.handle !== handle){
             if(isFollowing){
                 return (
-                    <button onClick={unfollow}>Unfollow</button>
+                    <button className='profile-unfollow-button' onClick={unfollow}>Following</button>
                 )
             } else {
                 return (
-                    <button onClick={follow}>Follow</button>
+                    <button className='profile-follow-button' onClick={follow}>Follow</button>
                 )
             }
         }
@@ -98,19 +96,98 @@ const ProfilePage = ({ user, token, getProfile }) => {
     const editButton = () => {
         if(user.handle === handle){
             return (
-                <button>
-                    <Link to={`/profile/${handle}/edit`}>Edit Profile</Link>
+                <button className='profile-edit-button'>
+                    <Link className='profile-edit-link' to={`/profile/${handle}/edit`}>Edit Profile</Link>
                 </button>
             )
         }
     }
 
-    const tabButton = () => {
-        if(user.handle === handle){
+    const weetsButton = () => {
+        if(data === 'weets'){
             return (
-                <button onClick={toTabs}>Tabs</button>
+                <button className='profile-chosen-button' onClick={toWeets}>Weets</button>
+            )
+        } else {
+            return (
+                <button className='profile-change-button' onClick={toWeets}>Weets</button>
             )
         }
+    }
+
+    const reweetsButton = () => {
+        if(data === 'reweets'){
+            return (
+                <button className='profile-chosen-button' onClick={toReweets}>Reweets</button>
+            ) 
+        } else {
+            return (
+                <button className='profile-change-button' onClick={toReweets}>Reweets</button>
+            )
+        }
+    }
+
+    const favoritesButton = () => {
+        if(data === 'favorites'){
+            return (
+                <button className='profile-chosen-button' onClick={toFavorites}>Favorites</button>
+            )
+        } else {
+            return (
+                <button className='profile-change-button' onClick={toFavorites}>Favorites</button>
+            )   
+        }
+    }
+
+    const tabButton = () => {
+        if(user.handle === handle){
+            if(data === 'tabs'){
+                return (
+                    <button className='profile-chosen-button' onClick={toTabs}>Tabs</button>
+                )  
+            } else {
+                return (
+                    <button className='profile-change-button' onClick={toTabs}>Tabs</button>
+                )
+            }
+        }
+    }
+
+    const followersButton = () => {
+        if(data === 'followers'){
+            return (
+                <button className='profile-chosen-button' onClick={toFollowers}>Followers</button>
+            )
+        } else {
+            return (
+                <button className='profile-change-button' onClick={toFollowers}>Followers</button>
+            )
+        }
+    }
+
+    const followingButton = () => {
+        if(data === 'following'){
+            return (
+                <button className='profile-chosen-button' onClick={toFollowing}>Following</button>
+            )
+        } else {
+            return (
+                <button className='profile-change-button' onClick={toFollowing}>Following</button>
+            )
+        }
+    }
+
+    const loadProfileButtons = () => {
+        return (
+            <div className='profile-buttons-container'>
+                {weetsButton()}
+                {reweetsButton()}
+                {favoritesButton()}
+                {tabButton()}
+                {followersButton()}
+                {followingButton()}
+            </div>
+        )
     }
 
     const loadContent = (data) => {
@@ -128,34 +205,37 @@ const ProfilePage = ({ user, token, getProfile }) => {
         }
         else if(data === 'followers'){
             return <ProfileFollowers user={user} token={token} handle={handle} />
-            /*return (
-                <h1>You have reached the followers page</h1>
-            )*/
         }
         else if(data === 'following'){
             return <ProfileFollowing user={user} token={token} handle={handle} />
-            /*return (
-                <h1>You have reached the following page</h1>
-            )*/
         }
     }
 
     const loadProfile = (profileData) => {
         const { handle, username, user_description, profile_image, banner_image } = profileData;
         return (
-            <div className='profile-container'>
-                <h1>{username}</h1>
-                <h2>{handle}</h2>
-                <p>{user_description}</p>
-                {followButton()}
-                {editButton()}
-                <div className='link-container'>
-                    <button onClick={toWeets}>Weets</button>
-                    <button onClick={toReweets}>Reweets</button>
-                    <button onClick={toFavorites}>Favorites</button>
-                    {tabButton()}
-                    <button onClick={toFollowers}>Followers</button>
-                    <button onClick={toFollowing}>Following</button>
+            <div className='profile-page-container'>
+                <div className='profile-main-container'>
+                    <div className='profile-banner-container'>
+                        <img src={banner_image}></img>
+                    </div>
+                    <div className='profile-image-edit-container'>
+                        <div className='profile-image-image-container'>
+                            <img src={profile_image}></img>
+                        </div>
+                        <div className='profile-follow-edit-container'>
+                            {followButton()}
+                            {editButton()}
+                        </div>
+                    </div>
+                    <div className='profile-user-info-container'>
+                        <p className='profile-username'>{username}</p>
+                        <p className='profile-handle'>{`@${handle}`}</p>
+                    </div>
+                    <div className='profile-user-description-container'>
+                        <p className='profile-user-description'>{user_description}</p>
+                    </div>
+                    {loadProfileButtons()}
                 </div>
                 {loadContent(data)}
             </div>
@@ -175,92 +255,6 @@ const ProfilePage = ({ user, token, getProfile }) => {
     }
 
     return loadProfile(profile);
-    
-    /*const initialState = '';
-    const [profile, setProfile] = useState(initialState);
-    const [isLoading, setIsLoading] = useState(true);
-
-    const { handle } = useParams();
-
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if(token){
-            const fetchProfile = async (handle, token) => {
-                const fetchedProfile = await getProfile(handle, token);
-                if(!fetchedProfile){
-                    navigate('/NotFound');
-                }
-                setProfile(fetchedProfile);
-                setIsLoading(false);
-            }
-            fetchProfile(handle, token).catch(console.error)
-        }
-    }, [token]);
-    
-    const editButton = (user, handle) => {
-        if(user.handle === handle){
-            return (
-                <button>
-                    <Link to={`/profile/${handle}/edit`}>Edit Profile</Link>
-                </button>
-            )
-        }
-    }
-
-    const tabButton = (user, handle) => {
-        if(user.handle === handle){
-            return (
-                <button>
-                    <Link to={`/profile/${handle}/tabs`}>Tabs</Link>
-                </button>
-            )
-        }
-    }
-
-    const loadProfile = (profileData) => {
-        const { handle, username, user_description, profile_image, banner_image } = profileData;
-        return (
-            <div className='profile-container'>
-                <h1>{username}</h1>
-                <h2>{handle}</h2>
-                <p>{user_description}</p>
-                {editButton(user, handle)}
-                <div className='link-container'>
-                    <button>
-                        <Link to={`/profile/${handle}/weets`}>Weets</Link>
-                    </button>
-                    <button>
-                        <Link to={`/profile/${handle}/reweets`}>Reweets</Link>
-                    </button>
-                    <button>
-                        <Link to={`/profile/${handle}/favorites`}>Favorites</Link>
-                    </button>
-                    {tabButton(user, handle)}
-                    <button>
-                        <Link to={`/profile/${handle}/followers`}>Followers</Link>
-                    </button>
-                    <button>
-                        <Link to={`/profile/${handle}/following`}>Following</Link>
-                    </button>
-                </div>
-            </div>
-        )
-    }
-
-    if(!localStorage.getItem('token')){
-        navigate('/');
-    }
-
-    if(isLoading){
-        return (
-            <div>
-                Loading...
-            </div>
-        )
-    }
-
-    return loadProfile(profile);*/
 };
 
 export default ProfilePage;
