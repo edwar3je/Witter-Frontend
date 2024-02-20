@@ -59,8 +59,10 @@ const Feed = ({ user, token, getFeed }) => {
         )
     } else {
         return (
-            <div>
-                <h1>Start following accounts or writing weets to fill your feed.</h1>
+            <div className='weets-feed-special-container'>
+                <div className='weets-feed-notice'>
+                    <h1>Start following accounts or writing weets to fill your feed.</h1>
+                </div>
             </div>
         )
     }

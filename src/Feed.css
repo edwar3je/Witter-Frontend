@@ -6,3 +6,23 @@
     margin-top: 20px;
     gap: 20px;
 }
+
+.weets-feed-special-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.weets-feed-notice {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 20px;
+    width: 800px;
+}
+
+.weets-feed-notice h1 {
+    font-size: 40px;
+    color: white;
+    text-align: center;
+}
