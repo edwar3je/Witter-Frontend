@@ -3,6 +3,17 @@ import { useNavigate, useParams } from 'react-router-dom';
 import WeetCard from './WeetCard';
 import './Weet.css';
 
+/** This component renders a div that contains a single WeetCard component instance in the 'single' display state. Upon initial render, the component
+ *  checks if the user is currently signed in by checking to see if a token is stored in localStorage (if not, the user is redirected to the home page).
+ *  Afterwards, an async function is called to fetch the weet based on the id provided in the url. If the async function catches any errors (weet does 
+ *  not exist), the user is redirected to the 'Not Found' page. Otherwise, the information is saved to the 'individualWeet' state, and the keys from
+ *  'individualWeet' are placed inside the WeetCard prop to generate the weet.
+ * 
+ *  Unlike the 'group' display state of a WeetCard component instance, the 'single' display state has a few formatting changes, with the most notable
+ *  difference being that the main WeetCard div does not function as a link leading to the specifice weet.
+ * 
+ */
+
 const Weet = ({ user, token, getWeet }) => {
 
     const initialState = '';

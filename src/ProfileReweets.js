@@ -3,6 +3,14 @@ import WeetCard from './WeetCard';
 import WitterApi from './api';
 import './ProfileReweets.css';
 
+/** This component renders a div that contains every weet a given user (by handle) has reweeted. Upon initial render, a function in useEffect will 
+ *  fetch every weet the user (handle) has reweeted and save it to the 'reweets' state. Each weet within the 'reweets' state will not only
+ *  contain the weet that was reweeted, but also information pertaining to the user making the request that can be separate from the handle
+ *  (i.e. did the user reweet, favorite or tab the weet). If the 'reweets' state contains any weets, each weet will be rendered via the WeetCard
+ *  component inside a div. If no weets are found within 'reweets', a special message is generated inside the div informing the user that the
+ *  account (handle) has not reweeted any weets. This component is intended to be used in conjunction with the ProfilePage component.
+*/
+
 const ProfileReweets = ({ user, token, handle }) => {
 
     const initialState = '';

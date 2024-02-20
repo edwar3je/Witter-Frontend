@@ -11,6 +11,10 @@ const Feed = ({ user, token, getFeed }) => {
 
     const navigate = useNavigate();
 
+    /** Upon initial rendering of the component, an API call is made to fetch weets for a user's feed
+     *  to store in the 'weets' state, and the 'isLoading' state is set to false.
+     */
+
     useEffect(() => {
         if(token){
             const fetchWeets = async (token) => {
@@ -24,6 +28,10 @@ const Feed = ({ user, token, getFeed }) => {
         }
     }, [token]);
 
+    /** If a token is not stored in localStorage, the user is deemed not signed in and is redirected to
+     *  the home page.
+     */
+
     if(!localStorage.getItem('token')){
         navigate('/');
     }
@@ -35,6 +43,11 @@ const Feed = ({ user, token, getFeed }) => {
             </div>
         )
     }
+
+    /** If the 'weets' state contains weets, each weet will be rendered in a div using the WeetCard component.
+     *  Otherwise, a special message will be generated encouraging the user to either post weets or begin following
+     *  other accounts.
+     */
 
     if(weets.length >= 1){
         return (

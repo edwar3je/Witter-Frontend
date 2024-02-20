@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import './SearchForm.css';
 
+/** This component renders a form that returns an array of accounts containing usernames that match the string provided in the 'search' state
+ *  at form submission. Only part of the username needs to match the 'search' string and the results are case-insensitive. This component is
+ *  used in conjunction with the SearchPage component to render the results of the form submission.
+ */
+
 const SearchForm = ({ user, token, fetchUsers }) => {
 
     const initialState = '';

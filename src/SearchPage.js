@@ -4,6 +4,21 @@ import SearchForm from './SearchForm';
 import UserCard from './UserCard';
 import './SearchPage.css';
 
+/** This component renders a page that contains another form component used to search for accounts that contain usernames that match the string
+ *  provided in the form. Upon initial render, the 'searchString' and 'users' states are each given an empty string as a value. Upon form
+ *  submission (when the 'searchString' state changes), an API call is made that uses the searchString provided by the form (along with the token
+ *  stored in the token prop) to fetch accounts that contain usernames that match searchString. The results of the API call are kept inside 'users'
+ *  to properly render the results of the API call below the SearchForm component. The usernames do not need to fully match the value in
+ *  searchString, but do need to include the searchString (case insensitive).
+ * 
+ *  If 'users' contains any accounts, the accounts will be rendered via the UserCard component within a div below the SearchForm component. If
+ *  'users' does not contain any accounts, a special message will be generated within the div below the SearchForm component informing the user
+ *  that there are no accounts containing usernames that include the given search string.
+ * 
+ *  If the user is not currently logged in (token is not found in localStorage), the user will be redirected to the home page.
+ * 
+ */
+
 const SearchPage = ({ user, token, searchUsers }) => {
     
     const initialState = '';

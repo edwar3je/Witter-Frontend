@@ -16,13 +16,13 @@ import WeetEditForm from './WeetEditForm';
 import NotFound from './NotFound';
 import './App.css';
 
+/** This component serves as the main component rendered across the entire app and is primarily used to handle two important states:
+ *  token (a json web token that is used with most WitterApi requests) and currentUser (information on the current user).
+ */
+
 function App() {
 
   const initialState = '';
-
-  /** This component serves as the main component rendered across the entire app and is primarily used to handle two important states:
-   *  token (a json web token that is used with most WitterApi requests) and currentUser (information on the current user).
-   */
   
   const [currentUser, setCurrentUser] = useState(initialState);
   const [token, setToken] = useState(initialState);

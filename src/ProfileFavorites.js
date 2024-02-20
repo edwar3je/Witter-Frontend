@@ -3,6 +3,14 @@ import WeetCard from './WeetCard';
 import WitterApi from './api';
 import './ProfileFavorites.css';
 
+/** This component renders a div that contains every weet a given user (by handle) has favorited. Upon initial render, a function in useEffect will
+ *  fetch every weet the user (handle) has favorited and save it to the 'favorites' state. Each weet within the 'favorites' state will not only
+ *  contain the weet favorited, but also information pertaining to the user making the request that can be seperate from the handle (i.e. did the user
+ *  reweet, favorite or tab the weet). If the 'favorites' state contains any weets, each weet will be rendered via the WeetCard component inside a div.
+ *  If no weets are found within 'favorites', a special message is generated inside the div informing the user that the account (handle) has not favorited
+ *  any weets. This component is intended to be used in conjunction with the ProfilePage component.
+ */
+
 const ProfileFavorites = ({ user, token, handle }) => {
 
     const initialState = '';

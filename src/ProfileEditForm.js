@@ -4,6 +4,52 @@ import { v4 as uuidv4 } from 'uuid';
 import ErrorMessage from './ErrorMessage';
 import './ProfileEditForm.css';
 
+/** This component renders a form that allows users to edit various parts of their profile. The component uses frontend error
+ *  handling to ensure only valid data is sent to the backend. Upon initial render, the component will fetch the user's current profile
+ *  information (save for their current password) and place the information within the appropriate form inputs. The component will also 
+ *  generate a 'validateObject' that contains multiple keys each corresponding to the different inputs in the form. Each key has two keys 
+ *  that have the following values: a boolean that determines whether the data type submitted is valid and an array of messages 
+ *  containing any found errors. Regardless of what data is being changed, the user must submit their current password for any change to be 
+ *  considered valid.
+ * 
+ *  Upon form submission, the 'validating' state is changed to true, which starts a validation sequence inside useEffect. The form data
+ *  is sent to a validation route on the backend that generates a validation object that determines whether the data submitted is valid
+ *  or invalid. For form data to be considered valid, each input must pass the following checks:
+ *     a.) username: 
+ *        1.) Must be between 8 - 20 characters in length.
+ *        2.) Must match regular expression (cannot consist of just blank spaces, nor start with a blank space).
+ *     b.) oldPassword (required):
+ *        1.) Must match the password associated with the handle on the backend. 
+ *     c.) newPassword (optional):
+ *        1.) Must be between 8 - 20 characters in length.
+ *        2.) Cannot match the current user's password stored on the backend.
+ *        3.) Must match regular expression (must contain 1 capital letter, 1 lowercase letter, 1 number and 1 special character).
+ *     d.) email: 
+ *        1.) Must either be unique or the same email associated with the handle on the backend.
+ *        2.) Must match regular expression (must contain an @ symbol and end with either .com, .edu or .net).
+ *     e.) userDescription:
+ *        1.) Must be less than or equal to 250 characters in length.
+ *        2.) Must match regular expression (cannot consist of just blank spaces, nor start with a blank space).
+ *     f.) profilePicture:
+ *        1.) Must match regular expression (url must contain either 'http' or 'https' as a protocol, followed by a valid image extension (jpg, jpeg or png)).
+ *     g.) bannerPicture:
+ *        1.) Must match regular expression (url must contain either 'http' or 'https' as a protocol, followed by a valid image extension (jpg, jpeg or png)).
+ * 
+ *  If the validate object returned from the validation sequence contains any keys with an isValid key that has false as a value, the data is deemed
+ *  invalid, the validate object is saved to the 'validateObject' state, and any messages within the validate object are rendered under the appropriate
+ *  inputs via the ErrorMessage component. If all the 'isValid' keys have true as a value, the form data is submitted to the edit profile route on the
+ *  backend, and the user is redirected to their profile page.
+ * 
+ *  Users can also choose to delete their profile by clicking the 'Delete my account' button along with another button asking for confirmation. Doing so will
+ *  delete the account on the backend, log the user out of their account (remove information on user and token from state and localStorage) and redirect the
+ *  user to the home page.
+ * 
+ *  If the user is not logged in (token not found in localStorage), or the user is not the owner of the account (user.handle !== handle), the user will be
+ *  redirected to the home page. Alternatively, if the handle within the url does not match any account stored on the backend, the user will be redirected
+ *  to the 'Not Found' page.
+ * 
+ */
+
 const ProfileEditForm = ({ user, token, getProfile, editProfile, validateEditProfile, deleteAccount }) => {
 
     const initialFormState = {
@@ -15,6 +61,9 @@ const ProfileEditForm = ({ user, token, getProfile, editProfile, validateEditPro
         profilePicture: '',
         bannerPicture: ''
     };
+
+    /** Any messages inside the messages key will be rendered via the ErrorMessage component.
+     */
 
     const initialValidObject = {
         username: {
@@ -57,6 +106,12 @@ const ProfileEditForm = ({ user, token, getProfile, editProfile, validateEditPro
     const [validating, setValidating] = useState(false);
     const [displayDelete, setDisplayDelete] = useState(false);
     const [deleting, setDeleting] = useState(false);
+
+    /** useEffect has three primary functions within this component. The first is to fetch any existing profile data on the initial render
+     *  (if it exists). The second is to conduct a validation sequence that either results in form data being submitted to the edit profile
+     *  route on the backend, or changing the 'validateObject' state resulting in the rendering of error messages. The final function is
+     *  to delete a user's profile if the user clicks on the initial delete button followed by clicking 'Yes' on the second delete prompt.
+      */
 
     useEffect(() => {
         if(token && isLoading){
@@ -109,12 +164,20 @@ const ProfileEditForm = ({ user, token, getProfile, editProfile, validateEditPro
         }
     }, [token, validateObject, validating, deleting]);
 
+    /** This function is placed inside each ErrorMessage component instance and allows users to remove the error message from being rendered on the page by
+     *  removing the specific message from the 'validateObject' state.
+     */
+
     const removeMessage = (type, message) => {
         let curValidObject = validateObject;
         const delIndex = curValidObject[type].messages.indexOf(message);
         curValidObject[type].messages.splice(delIndex, 1);
         setValidateObject(curValidObject);
     }
+
+    /** The below functions render error messages based on whether the isValid key associated with the form input is false and if the validateObject state
+     *  contains any messages within the messages key. 
+     */
 
     const loadUsernameErrors = () => {
         if(!validateObject.username.isValid){
@@ -140,7 +203,7 @@ const ProfileEditForm = ({ user, token, getProfile, editProfile, validateEditPro
         }
     }
 
-    // Add in extra check because the object returned sometimes does not contain newPassword as a key
+    // This specific function requires an extra check because newPassword is not always submitted.
 
     const loadNewPasswordErrors = () => {
         if(validateObject.newPassword && !validateObject.newPassword.isValid){
@@ -214,6 +277,12 @@ const ProfileEditForm = ({ user, token, getProfile, editProfile, validateEditPro
         setValidating(true);
     }
 
+    /** The following four functions control the rendering and functionality of the 'delete buttons'. The initial delete button will change the 'displayDelete' 
+     *  state to true, which renders the delete prompt buttons. Clicking the 'delete no button' will return the displayDelete state to false, causing the initial 
+     *  delete button to rerender and the delete prompt buttons to unrender. Clicking the 'delete yes button' will change the 'deleting' state to true, causing 
+     *  the account to be deleted on the backend, log the user out and redirect the user back to the home page.
+     */
+
     const handleInitialDelete = e => {
         e.preventDefault();
         setDisplayDelete(true);
@@ -263,52 +332,6 @@ const ProfileEditForm = ({ user, token, getProfile, editProfile, validateEditPro
     }
     
     return (
-        /*<div>
-            <div className='profile-edit-general-container'>
-                <h2 className='edit-profile-title'>Edit Profile</h2>
-                <div>
-                    <form className='edit-profile-input-container' onSubmit={handleSubmit}>
-                        <div className='edit-profile-username'>
-                            <label className='edit-profile-username' htmlFor='username'>Username</label>
-                            <input type='text' className='edit-profile' id='username' name='username' value={formData.username} onChange={handleChange}></input>
-                            {loadUsernameErrors()}
-                        </div>
-                        <div className='edit-profile-oldPassword'>
-                            <label className='edit-profile-oldPassword' htmlFor='oldPassword'>Current Password</label>
-                            <input type='password' className='edit-profile' id='oldPassword' name='oldPassword' value={formData.oldPassword} onChange={handleChange}></input>
-                            {loadOldPasswordErrors()}
-                        </div>
-                        <div className='edit-profile-newPassword'>
-                            <label className='edit-profile-newPassword' htmlFor='newPassword'>New Password {'(optional)'}</label>
-                            <input type='password' className='edit-profile' id='newPassword' name='newPassword' value={formData.newPassword} onChange={handleChange}></input>
-                            {loadNewPasswordErrors()}
-                        </div>
-                        <div className='edit-profile-email'>
-                            <label className='edit-profile-email' htmlFor='email'>Email</label>
-                            <input type='text' className='edit-profile' id='email' name='email' value={formData.email} onChange={handleChange}></input>
-                            {loadEmailErrors()}
-                        </div>
-                        <div className='edit-profile-userDescription'>
-                            <label className='edit-profile-userDescription' htmlFor='userDescription'>User Description</label>
-                            <input type='text' className='edit-profile' id='userDescription' name='userDescription' value={formData.userDescription} onChange={handleChange}></input>
-                            {loadUserDescriptionErrors()}
-                        </div>
-                        <div className='edit-profile-profilePicture'>
-                            <label className='edit-profile-profilePicture' htmlFor='profilePicture'>Profile Picture</label>
-                            <input type='text' className='edit-profile' id='profilePicture' name='profilePicture' value={formData.profilePicture} onChange={handleChange}></input>
-                            {loadProfilePictureErrors()}
-                        </div>
-                        <div className='edit-profile-bannerPicture'>
-                            <label className='edit-profile-bannerPicture' htmlFor='bannerPicture'>Banner Picture</label>
-                            <input type='text' className='edit-profile' id='bannerPicture' name='bannerPicture' value={formData.bannerPicture} onChange={handleChange}></input>
-                            {loadBannerPictureErrors()}
-                        </div>
-                        <button className='edit-profile-submit'>Submit</button>
-                    </form>
-                </div>
-                {loadDeleteOptions()}
-            </div>
-        </div>*/
         <div className='edit-profile-page-container'>
             <div className='edit-profile-general-container'>
 

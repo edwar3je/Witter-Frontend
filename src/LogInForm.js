@@ -4,6 +4,23 @@ import { v4 as uuidv4 } from 'uuid';
 import ErrorMessage from './ErrorMessage';
 import './LogInForm.css';
 
+/** This component renders a form that allows users to sign into their existing account (if applicable) by sending
+ *  their handle and password. The component uses simple frontend error handling to ensure only valid data is sent
+ *  to the backend. Upon initial render, the component will generate a 'validateObject' that will determine whether
+ *  the data submitted is valid or invalid. Upon form submission, the 'validating' state will be set to true, allowing
+ *  the form data to be submitted to the validation route to generate a validation object. A 'valid' valid object
+ *  will be generated if the function executed within useEffect does not catch any errors.
+ * 
+ *  If the value for the 'isValid' key within the validation object is false, an error message will be rendered 
+ *  beneath the password input that can be removed. If the value for the 'isValid' key within the validation object 
+ *  is true, the data will be sent to backend and a token will be generated that contains the user's profile 
+ *  information. Both the token and user information will be stored in the App component's 'user' and 'token' state,
+ *  along with being stored locally in localStorage. Afterwards, the user will be redirected back to the home page.
+ * 
+ *  If the user is already signed in, the user will be redirected to the home page.
+ * 
+ */
+
 const LogInForm = ({ user, logIn }) => {
     
 
@@ -11,6 +28,9 @@ const LogInForm = ({ user, logIn }) => {
         handle: '',
         password: ''
     };
+
+    /** Any messages inside the messages key will be rendered via the ErrorMessage component. 
+    */
 
     const initialValidateObject = {
         password: {
@@ -24,6 +44,12 @@ const LogInForm = ({ user, logIn }) => {
     const [formData, setFormData] = useState(initialState);
     const [validateObject, setValidateObject] = useState(initialValidateObject);
     const [validating, setValidating] = useState(false);
+
+    /** When the 'validating' state is set to true, a validation sequence will begin. If the form data submitted passes
+     *  the validation sequence, the user will be signed in and redirected back to the home page. Otherwise, the
+     *  validation object will be replaced with an 'invalid object' resulting in the rendering of an error message via
+     *  the ErrorMessage component.
+     */
 
     useEffect(() => {
         if(validating){
@@ -44,12 +70,18 @@ const LogInForm = ({ user, logIn }) => {
         }
     }, [validateObject, validating]);
 
+    /** This function will allow the user to remove the specific message from the 'LogInForm' component's 'validateObject' state,
+     *  causing the associated ErrorMessage component to unrender.
+     */
+
     const removeMessage = (type, message) => {
         let curValidObject = validateObject;
         const delIndex = curValidObject[type].messages.indexOf(message);
         curValidObject[type].messages.splice(delIndex, 1);
         setValidateObject(curValidObject);
     }
+
+    /** This function renders an ErrorMessage component if the existing 'validateObject' state's isValid key has false as a value. */
 
     const loadSignUpError = () => {
         if(!validateObject.password.isValid){
@@ -110,23 +142,6 @@ const LogInForm = ({ user, logIn }) => {
                     </form>
                 </div>
             </div>
-            /*<div className='log-in-general-container'>
-                <h2 className='log-in-title'>Log In</h2>
-                <div>
-                    <form className='log-in-input-container' onSubmit={handleSubmit}>
-                        <div className='log-in-handle'>
-                            <label className='log-in-label' htmlFor='handle'>Handle</label>
-                            <input type='text' className='log-in' name='handle' value={formData.handle} onChange={handleChange}></input>
-                        </div>
-                        <div className='log-in-password'>
-                            <label className='log-in-label' htmlFor='password'>Password</label>
-                            <input type='password' className='log-in' name='password' value={formData.password} onChange={handleChange}></input>
-                        </div>
-                        {loadSignUpError()}
-                        <button className='log-in-submit'>Submit</button>
-                    </form>
-                </div>
-            </div>*/
         );
     };
 };

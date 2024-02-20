@@ -3,7 +3,27 @@ import { Link } from 'react-router-dom';
 import WitterApi from './api';
 import './WeetCard.css';
 
+/** This component renders a div that contains information on a specific weet, based on the information provided in the props.
+ *  The component not only displays information on a given weet, but also allows users to perform several weet-specific actions
+ *  such as: reweeting/unreweeting the weet, favoriting/unfavoriting the weet and tabbing/untabbing the weet. Users are also able
+ *  to view the author's profile page by clicking on either the username or handle within the WeetCard. If the user is the author
+ *  of the weet, an edit button (link) will appear that will redirect the user to a form that allows them to edit their weet.
+ * 
+ *  Additionally, the format of the WeetCard instance depends on the value within the 'setting' prop, which can either result
+ *  in a 'group' WeetCard, or a 'single' WeetCard. Both instances have small format changes, with the most notable change being
+ *  that the 'single' WeetCard instance does not contain a link on the main WeetCard container.
+ * 
+ *  This component is primarily used with other parent components such as Feed, ProfileWeets, ProfileReweets, ProfileFavorites,
+ *  ProfileTabs and Weet.
+ */
+
 const WeetCard = ({id, weet, author, date, time, stats, userInfo, checks, user, token, setting}) => {
+
+    /** The initial state of isReweeted, isFavorited and isTabbed is determined by information stored in the 'checks' prop.
+     *  These three states can be changed if the user clicks on the appropriate buttons at the bottom of the container.
+     *  Similarly, the initial state of reweetStat, favoriteStat and tabStat are determined by the information stored in the
+     *  'stats' prop, and can be changed depending via clicking the appropriate buttons at the bottom of the container.
+     */
     
     const [isReweeted, setIsReweeted] = useState(checks.reweeted);
     const [reweetStat, setReweetStat] = useState(stats.reweets);
@@ -11,6 +31,12 @@ const WeetCard = ({id, weet, author, date, time, stats, userInfo, checks, user, 
     const [favoriteStat, setFavoriteStat] = useState(stats.favorites);
     const [isTabbed, setIsTabbed] = useState(checks.tabbed);
     const [tabStat, setTabStat] = useState(stats.tabs);
+
+    /** Each button contains one of two actions depending on the relevant state. If the user clicks on a button that changes
+     *  one of the states to true, the associated stat will increase by one and the rendering of the button will change to the
+     *  inverse function. Similarly, clicking the inverse function will reduce the associated state by one and change the button
+     *  to the 'positive' version (e.g. reweet, favorite, tab).
+     */
     
     const reweet = async e => {
         e.preventDefault();
@@ -132,6 +158,10 @@ const WeetCard = ({id, weet, author, date, time, stats, userInfo, checks, user, 
         }
     }
 
+    /** If the user created the weet, a link will appear that (when clicked) will redirect the user to a form that allows the user to
+     *  edit their existing weet.
+     */
+
     const editButton = () => {
         if(author === user.handle){
             return (
@@ -143,6 +173,11 @@ const WeetCard = ({id, weet, author, date, time, stats, userInfo, checks, user, 
             )
         }
     }
+
+    /** The 'setting' prop determines which type of weet gets rendered. While both the 'single' and 'group' WeetCards have very few 
+     *  differences in format, the biggest difference between the two formats is that the main container for the 'single' WeetCard does not
+     *  contain a link to the specific weet.
+     */
 
     if(setting === 'group'){
         return (

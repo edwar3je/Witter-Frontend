@@ -5,11 +5,36 @@ import ErrorMessage from './ErrorMessage';
 import WitterApi from './api';
 import './WeetEditForm.css';
 
+/** This component renders a form that allows users to edit their weets based on the id provided in the url. The component uses simple frontend
+ *  error handling to ensure only valid data is sent to the backend. Upon initial render, the component will fetch the contents of the weet and
+ *  place the information inside the 'weet' key stored within the 'formData' state. If the function call catches any errors (weet not found),
+ *  the user will be redirected to the 'Not Found' page. If the user is not the author of the weet, or is not currently logged in, the user will
+ *  be redirected to the home page. The initial render also generates a 'validateObject' that contains two keys used for data validation: a
+ *  boolean that determines if the data submitted is valid and an array of messages containing any errors found.
+ * 
+ *  Upon form submission, the 'submitting' state is set to true, which begins a validation sequence inside useEffect. The form data is evaluated
+ *  to generate a validation object to determine if the data submitted is valid. If the 'isValid' key from the returned object has a value of true, 
+ *  the data is sent to the backend, the text of the weet is changed to the data submitted and the user is redirected to a page containing the newly 
+ *  edited weet. If the 'isValid' key has a value of false, the 'validateObject' state is set to the validation object returned and the appropriate 
+ *  error messages are rendered using the ErrorMessage component.
+ *  
+ *  For the data to be considered valid, the weet submitted must pass the following checks:
+ *     1.) The weet is less than or equal to 250 characters in length.
+ *     2.) The weet meets the regular expression (cannot consist of just empty spaces nor begin with an empty space).
+ *  
+ *  Users can also choose to delete their weet by clicking the 'Delete my weet' button along with another button asking for confirmation. Doing so will
+ *  delete the weet on the backend and redirect the user to their profile page.
+ * 
+ */
+
 const WeetEditForm = ({ user, token, getWeet }) => {
     
     const initialFormState = {
         weet: ''
     }
+
+    /** Any messages inside the messages key will be rendered via the ErrorMessage component.
+     */
 
     const initialValidObject = {
         weet: {
@@ -28,6 +53,13 @@ const WeetEditForm = ({ user, token, getWeet }) => {
     const { id } = useParams();
 
     const navigate = useNavigate();
+
+    /** useEffect has three primary functions within this component. The first is to fetch any existing weet data on the initial render
+     *  (if it exists). The second is to conduct a validation sequence that determines whether the data submitted is valid to send to
+     *  the official edit weet route on the backend, or changing the 'validateObject' state resulting in the rendering of error messages.
+     *  The final function is to delete the weet if the user clicks on the initial delete button, followed by clicking 'Yes' on the second
+     *  delete prompt.
+    */
 
     useEffect(() => {
         if(token && isLoading){
@@ -85,12 +117,20 @@ const WeetEditForm = ({ user, token, getWeet }) => {
         }
     }, [token, submitting, deleting, validateObject])
 
+    /** This function is placed inside each ErrorMessage component instance and allows users to remove the error message from being rendered on the page by
+     *  removing the specific message from the 'validateObject' state.
+     */
+
     const removeMessage = (type, message) => {
         let curValidObject = validateObject;
         const delIndex = curValidObject[type].messages.indexOf(message);
         curValidObject[type].messages.splice(delIndex, 1);
         setValidateObject(curValidObject);
     }
+
+    /** This function renders error messages based on whether the isValid key associated with the form input is false and if the validateObject state contains
+     *  any messages within the messages key.
+     */
 
     const loadWeetErrors = () => {
         if(!validateObject.weet.isValid){
@@ -115,6 +155,12 @@ const WeetEditForm = ({ user, token, getWeet }) => {
         e.preventDefault();
         setSubmitting(true);
     }
+
+    /** The following four functions control the rendering and functionality of the 'delete buttons'. The initial delete button will change the 'displayDelete'
+     *  state to true, which renders the delete prompt buttons. Clicking the 'delete no button' will return the displayDelete state to false, causing the initial
+     *  delete button to rerender and the delete prompt buttons to unrender. Clicking the 'delete yes button' will change the 'deleting' state to true, causing
+     *  the weet to be deleted on the backend and redirect the user to their profile page.
+     */
 
     const handleInitialDelete = e => {
         e.preventDefault();

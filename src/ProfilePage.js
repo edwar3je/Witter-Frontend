@@ -7,7 +7,21 @@ import ProfileTabs from './ProfileTabs';
 import ProfileFollowers from './ProfileFollowers';
 import ProfileFollowing from './ProfileFollowing';
 import WitterApi from './api';
-import './ProfilePage.css'
+import './ProfilePage.css';
+
+/** This component serves as an account's profile page. Users are allowed to perform the following actions while on a profile page: view every weet
+ *  the account has posted, reweeted, favorited or tabbed (only available if it is the current user's profile page), view every account that follows
+ *  or is followed by the account, follow/unfollow the account (assuming it is not the current user's profile page) and/or edit the profile (only
+ *  available if it is the current user's profile page).
+ * 
+ *  Upon initial render, the function within useEffect will fetch the account's profile information based on the handle provided in the url (and the token
+ *  contained within props). If the account does not exist (error returned from function call), the user will be redirected to the 'Not Found' page.
+ *  Otherwise, the profile information will be placed inside the 'profile' state, which will be used to render the account's profile page. Additionally,
+ *  the 'date' state is initially set to 'weets' to ensure that the first set of data below the main profile container renders the ProfileWeets component.
+ *  The component rendered below can be changed via pressing one of the corresponding 'change profile' buttons.
+ * 
+ *  If the user is not currently signed in (token not found in localStorage), the user will be redirected to the home page.
+ */
 
 const ProfilePage = ({ user, token, getProfile }) => {
     
@@ -36,6 +50,9 @@ const ProfilePage = ({ user, token, getProfile }) => {
             });
         }
     }, [handle]);
+
+    /** These functions are used by the 'change-profile' buttons to change the component that is rendered below the main profile container.
+     */
 
     const toWeets = e => {
         e.preventDefault();
@@ -67,6 +84,11 @@ const ProfilePage = ({ user, token, getProfile }) => {
         setData('following');
     }
 
+    /** These two functions allow the user to either follow or unfollow the account corresponding to the profile. Upon clicking the appropriate button,
+     *  the 'isFollowing' state will be set to the inverse, causing the current button rendered to change. An API call is also made to ensure the user
+     *  is listed as following or not following the account.
+    */
+
     const follow = e => {
         e.preventDefault();
         WitterApi.follow(handle, token);
@@ -78,6 +100,11 @@ const ProfilePage = ({ user, token, getProfile }) => {
         WitterApi.unfollow(handle, token);
         setIsFollowing(false);
     }
+
+    /** This function renders a button that allows users to either follow or unfollow the account corresponding to the profile. If the profile page belongs
+     *  to the current user, the function will not return any jsx element. Otherwise, the appropriate element will be rendered based on the current 
+     *  'isFollowing' state.
+     */
 
     const followButton = () => {
         if(user.handle !== handle){
@@ -93,6 +120,10 @@ const ProfilePage = ({ user, token, getProfile }) => {
         }
     }
 
+    /** This function renders a button that will redirect the current user to a form that will allow them to edit their profile. This button will only render
+     *  if the profile page belongs to the current user.
+     */
+
     const editButton = () => {
         if(user.handle === handle){
             return (
@@ -102,6 +133,10 @@ const ProfilePage = ({ user, token, getProfile }) => {
             )
         }
     }
+
+    /** These functions render the appropriate 'change-profile' buttons that change which component is rendered beneath the main profile container. If the value of 'data'
+     *  matches the corresponding button (e.g. 'weets' for weetsButton), a special version of the button will be rendered that signifies which data type is being displayed.
+     */
 
     const weetsButton = () => {
         if(data === 'weets'){
@@ -138,6 +173,8 @@ const ProfilePage = ({ user, token, getProfile }) => {
             )   
         }
     }
+
+    // This function is different from the other 'change-profile' buttons because it is only rendered if the profile page belongs to the current user.
 
     const tabButton = () => {
         if(user.handle === handle){
@@ -177,6 +214,8 @@ const ProfilePage = ({ user, token, getProfile }) => {
         }
     }
 
+    // This function renders a div that contains each function that renders a corresponding 'change-profile' button.
+
     const loadProfileButtons = () => {
         return (
             <div className='profile-buttons-container'>
@@ -189,6 +228,8 @@ const ProfilePage = ({ user, token, getProfile }) => {
             </div>
         )
     }
+
+    // This function renders the appropriate component beneath the main profile container depending on the current state of 'data'
 
     const loadContent = (data) => {
         if(data === 'weets'){
@@ -210,6 +251,8 @@ const ProfilePage = ({ user, token, getProfile }) => {
             return <ProfileFollowing user={user} token={token} handle={handle} />
         }
     }
+
+    // This function renders the entire profile page based on the current state of 'profileData'
 
     const loadProfile = (profileData) => {
         const { handle, username, user_description, profile_image, banner_image } = profileData;

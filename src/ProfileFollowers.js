@@ -3,6 +3,15 @@ import UserCard from './UserCard';
 import WitterApi from './api';
 import './ProfileFollowers.css';
 
+/** This component renders a div that contains every account that follows a given user (by handle). Upon initial render, a function in useEffect
+ *  will fetch every account that is currently following the user (handle) and save it to the 'followers' state. Each account within the 'followers'
+ *  state will not only contain information on the account, but also information pertaining to the user making the request that can be seperate from
+ *  the handle (i.e. does the account follow or is followed by the user making the request). If 'followers' contains any accounts, each account will 
+ *  be rendered via the UserCard component inside a div. If no accounts are found within 'followers', a special message is generated inside the div 
+ *  informing the user that the account (handle) does not have any followers. This component is intended to be used in conjunction with the ProfilePage 
+ *  component.
+ */
+
 const ProfileFollowers = ({ user, token, handle }) => {
 
     const initialState = '';

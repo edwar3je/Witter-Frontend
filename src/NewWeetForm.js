@@ -4,9 +4,27 @@ import { v4 as uuidv4 } from 'uuid';
 import ErrorMessage from './ErrorMessage';
 import './NewWeetForm.css';
 
+/** This component renders a form that allows users to post new weets. This component uses simple frontend error validation
+ *  to ensure only valid data is sent to the backend. Upon initial render, the component will generate a 'validateObject'
+ *  that will determine whether the data submitted is valid or not. Upon form submission, the 'validating' state will be
+ *  set to true to allow the form data to pass through a set of checks that generates a validation object. For a 'valid'
+ *  valid object to be returned, the weet must pass two checks:
+ *     1.) The weet is less than or equal to 250 characters in length.
+ *     2.) The weet meets the regular expression (cannot consist of just empty spaces nor begin with an empty space).
+ * 
+ *  If any of the checks fail, the 'isValid' for the validation object will be set to false, and each message within the
+ *  validation object will be rendered via the ErrorMessage component. If none of the checks fail, the form data will be
+ *  submitted to the backend via an API call (resulting in a new weet) and the user will be redirected to their profile page.
+ * 
+ *  If the user is not signed in (token not found in localStorage), the user will be redirected to the home page.
+ */
+
 const NewWeetForm = ({ user, token, createWeet }) => {
     
     const initialState = '';
+
+    /** Any messages inside the messages key will be rendered via the ErrorMessage component.
+     */
 
     const initialValidObject = {
         weet: {
@@ -20,6 +38,12 @@ const NewWeetForm = ({ user, token, createWeet }) => {
     const [validating, setValidating] = useState(false);
 
     const navigate = useNavigate();
+
+    /** When the 'validating' state is set to true, a validation sequence will begin. If the form data submitted passes
+     *  the validation sequence, a new weet will be created and the user will be redirected to their profile page. 
+     *  Otherwise, the validation object will be replaced with an 'invalid object' resulting in the rendering of an error 
+     *  message via the ErrorMessage component.
+     */
 
     useEffect(() => {
         if(validating){
@@ -51,7 +75,11 @@ const NewWeetForm = ({ user, token, createWeet }) => {
                 console.error(err)
             })
         }
-    }, [validating, validateObject])
+    }, [validating, validateObject]);
+
+    /** This function will allow the user to remove the specific message from the 'LogInForm' component's 'validateObject' state,
+     *  causing the associated ErrorMessage component to unrender.
+     */
 
     const removeMessage = (type, message) => {
         let curValidObject = validateObject;
@@ -59,6 +87,8 @@ const NewWeetForm = ({ user, token, createWeet }) => {
         curValidObject[type].messages.splice(delIndex, 1);
         setValidateObject(curValidObject);
     }
+
+    /** This function renders an ErrorMessage component if the existing 'validateObject' state's isValid key has false as a value. */
 
     const loadWeetErrors = () => {
         if(!validateObject.weet.isValid){
