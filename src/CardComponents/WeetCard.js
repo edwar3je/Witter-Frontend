@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import WitterApi from './api';
-import './WeetCard.css';
+import WitterApi from '../api';
+import './styles/WeetCard.css';
 
 /** This component renders a div that contains information on a specific weet, based on the information provided in the props.
  *  The component not only displays information on a given weet, but also allows users to perform several weet-specific actions

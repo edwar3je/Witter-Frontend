@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import ErrorMessage from './ErrorMessage';
-import './SignUpForm.css';
+import ErrorMessage from '../CardComponents/ErrorMessage';
+import './styles/SignUpForm.css';
 
 /** This component renders a form that allows users to create a new account. The component uses simple frontend error handling to ensure only valid
  *  data is submitted to the backend. Upon initial render, the component will generate a 'validateObject' that contains multiple keys each

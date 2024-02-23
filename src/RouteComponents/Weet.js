@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import WeetCard from './WeetCard';
-import './Weet.css';
+import WeetCard from '../CardComponents/WeetCard';
+import './styles/Weet.css';
 
 /** This component renders a div that contains a single WeetCard component instance in the 'single' display state. Upon initial render, the component
  *  checks if the user is currently signed in by checking to see if a token is stored in localStorage (if not, the user is redirected to the home page).

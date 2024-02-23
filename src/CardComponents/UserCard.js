@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import WitterApi from './api';
-import './UserCard.css';
+import WitterApi from '../api';
+import './styles/UserCard.css';
 
 /** This component renders a div that contains information on a specific account, based on the information provided in the props.
  *  Generally, the information required to generate a user card is fetched via a parent component. Said information not only includes

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Home.css';
+import './styles/Home.css';
 
 /** This component serves as the home page for the application and changes depending on the 'user' prop
  *  (represents the 'currentUser' state on the main App component). If the 'user' prop is null, the home

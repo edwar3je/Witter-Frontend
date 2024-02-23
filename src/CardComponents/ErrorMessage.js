@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './ErrorMessage.css';
+import './styles/ErrorMessage.css';
 
 /** This component renders an error message div containing an error message based on the 'message' prop.
  *  The component can also be removed via clicking a button that will remove the associated message being

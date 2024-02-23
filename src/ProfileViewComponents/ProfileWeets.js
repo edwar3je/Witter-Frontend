@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import WeetCard from './WeetCard';
-import WitterApi from './api';
-import './ProfileWeets.css';
+import WeetCard from '../CardComponents/WeetCard';
+import WitterApi from '../api';
+import './styles/ProfileWeets.css';
 
 /** This component renders a div that contains every weet a given user (by handle) has written. Upon initial render, a function in useEffect will 
  *  fetch every weet the user (handle) has written and save it to the 'weets' state. Each weet within the 'weets' state will not only contain the

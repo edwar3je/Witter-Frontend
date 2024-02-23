@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import WeetCard from './WeetCard';
-import './Feed.css';
+import WeetCard from '../CardComponents/WeetCard';
+import './styles/Feed.css';
 
 const Feed = ({ user, token, getFeed }) => {
     

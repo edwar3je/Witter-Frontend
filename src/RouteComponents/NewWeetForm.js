@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import ErrorMessage from './ErrorMessage';
-import './NewWeetForm.css';
+import ErrorMessage from '../CardComponents/ErrorMessage';
+import './styles/NewWeetForm.css';
 
 /** This component renders a form that allows users to post new weets. This component uses simple frontend error validation
  *  to ensure only valid data is sent to the backend. Upon initial render, the component will generate a 'validateObject'

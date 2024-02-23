@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import WeetCard from './WeetCard';
-import WitterApi from './api';
-import './ProfileTabs.css';
+import WeetCard from '../CardComponents/WeetCard';
+import WitterApi from '../api';
+import './styles/ProfileTabs.css';
 
 /** This component renders a div that contains every weet a given user (by handle) has tabbed. Upon initial render, a function in useEffect will 
  *  fetch every weet the user (handle) has tabbed and save it to the 'tabs' state. Each weet within the 'tabs' state will not only contain the

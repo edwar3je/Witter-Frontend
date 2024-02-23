@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import ErrorMessage from './ErrorMessage';
-import './ProfileEditForm.css';
+import ErrorMessage from '../CardComponents/ErrorMessage';
+import './styles/ProfileEditForm.css';
 
 /** This component renders a form that allows users to edit various parts of their profile. The component uses frontend error
  *  handling to ensure only valid data is sent to the backend. Upon initial render, the component will fetch the user's current profile

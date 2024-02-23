@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SearchForm from './SearchForm';
-import UserCard from './UserCard';
-import './SearchPage.css';
+import SearchForm from '../IndividualFormComponents/SearchForm';
+import UserCard from '../CardComponents/UserCard';
+import './styles/SearchPage.css';
 
 /** This component renders a page that contains another form component used to search for accounts that contain usernames that match the string
  *  provided in the form. Upon initial render, the 'searchString' and 'users' states are each given an empty string as a value. Upon form

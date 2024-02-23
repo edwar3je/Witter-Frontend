@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import WeetCard from './WeetCard';
-import WitterApi from './api';
-import './ProfileReweets.css';
+import WeetCard from '../CardComponents/WeetCard';
+import WitterApi from '../api';
+import './styles/ProfileReweets.css';
 
 /** This component renders a div that contains every weet a given user (by handle) has reweeted. Upon initial render, a function in useEffect will 
  *  fetch every weet the user (handle) has reweeted and save it to the 'reweets' state. Each weet within the 'reweets' state will not only

@@ -3,17 +3,17 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import WitterApi from './api';
 import NavBar from './NavBar';
-import Home from './Home';
-import SignUpForm from './SignUpForm';
-import LogInForm from './LogInForm';
-import ProfilePage from './ProfilePage';
-import ProfileEditForm from './ProfileEditForm';
-import SearchPage from './SearchPage';
-import Feed from './Feed';
-import NewWeetForm from './NewWeetForm';
-import Weet from './Weet';
-import WeetEditForm from './WeetEditForm';
-import NotFound from './NotFound';
+import Home from './RouteComponents/Home';
+import SignUpForm from './RouteComponents/SignUpForm';
+import LogInForm from './RouteComponents/LogInForm';
+import ProfilePage from './RouteComponents/ProfilePage';
+import ProfileEditForm from './RouteComponents/ProfileEditForm';
+import SearchPage from './RouteComponents/SearchPage';
+import Feed from './RouteComponents/Feed';
+import NewWeetForm from './RouteComponents/NewWeetForm';
+import Weet from './RouteComponents/Weet';
+import WeetEditForm from './RouteComponents/WeetEditForm';
+import NotFound from './RouteComponents/NotFound';
 import './App.css';
 
 /** This component serves as the main component rendered across the entire app and is primarily used to handle two important states:

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import UserCard from './UserCard';
-import WitterApi from './api';
-import './ProfileFollowers.css';
+import UserCard from '../CardComponents/UserCard';
+import WitterApi from '../api';
+import './styles/ProfileFollowers.css';
 
 /** This component renders a div that contains every account that follows a given user (by handle). Upon initial render, a function in useEffect
  *  will fetch every account that is currently following the user (handle) and save it to the 'followers' state. Each account within the 'followers'

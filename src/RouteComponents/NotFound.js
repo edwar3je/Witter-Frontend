@@ -1,5 +1,5 @@
 import React from 'react';
-import './NotFound.css';
+import './styles/NotFound.css';
 
 /** This component serves as an area to redirect a user if the url entered does not exist.
  *  Common situations where this component is used includes: the account provided in the url

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import WeetCard from './WeetCard';
-import WitterApi from './api';
-import './ProfileFavorites.css';
+import WeetCard from '../CardComponents/WeetCard';
+import WitterApi from '../api';
+import './styles/ProfileFavorites.css';
 
 /** This component renders a div that contains every weet a given user (by handle) has favorited. Upon initial render, a function in useEffect will
  *  fetch every weet the user (handle) has favorited and save it to the 'favorites' state. Each weet within the 'favorites' state will not only

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import ErrorMessage from './ErrorMessage';
-import './LogInForm.css';
+import ErrorMessage from '../CardComponents/ErrorMessage';
+import './styles/LogInForm.css';
 
 /** This component renders a form that allows users to sign into their existing account (if applicable) by sending
  *  their handle and password. The component uses simple frontend error handling to ensure only valid data is sent

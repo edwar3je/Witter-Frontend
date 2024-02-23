@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import ProfileWeets from './ProfileWeets';
-import ProfileReweets from './ProfileReweets';
-import ProfileFavorites from './ProfileFavorites';
-import ProfileTabs from './ProfileTabs';
-import ProfileFollowers from './ProfileFollowers';
-import ProfileFollowing from './ProfileFollowing';
-import WitterApi from './api';
-import './ProfilePage.css';
+import ProfileWeets from '../ProfileViewComponents/ProfileWeets';
+import ProfileReweets from '../ProfileViewComponents/ProfileReweets';
+import ProfileFavorites from '../ProfileViewComponents/ProfileFavorites';
+import ProfileTabs from '../ProfileViewComponents/ProfileTabs';
+import ProfileFollowers from '../ProfileViewComponents/ProfileFollowers';
+import ProfileFollowing from '../ProfileViewComponents/ProfileFollowing';
+import WitterApi from '../api';
+import './styles/ProfilePage.css';
 
 /** This component serves as an account's profile page. Users are allowed to perform the following actions while on a profile page: view every weet
  *  the account has posted, reweeted, favorited or tabbed (only available if it is the current user's profile page), view every account that follows
