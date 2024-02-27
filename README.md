@@ -1,6 +1,6 @@
 # Witter (Frontend)
 
-Link: TBD
+Link: https://witter-frontend.onrender.com
 
 ERD (for API): https://lucid.app/lucidchart/d6c901d2-60ee-4888-9f9d-115dc716c04a/edit?viewport_loc=-487%2C-1423%2C2518%2C1466%2C0_0&invitationId=inv_f8429b10-abaa-4e28-81ed-537d92c2230f
 
@@ -164,7 +164,7 @@ If the id provided does not match any weet stored on the external API, the user 
 
 ## External API:
 
-Link: TBD
+Link: https://witter-backend-m74t.onrender.com
 
 To aid in data retrieval and storage, the frontend of Witter uses a custom API built using Node.js. The main reason for why the API was custom built was to ensure new features could be added at will to the API depending on the needs of the application. For instance, validation routes were added to the API later in development to assist with frontend error-handling on forms containing sensitive data.
 
