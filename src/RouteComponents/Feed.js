@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import WeetCard from '../CardComponents/WeetCard';
+import Loader from '../CardComponents/Loader';
 import './styles/Feed.css';
 
 const Feed = ({ user, token, getFeed }) => {
@@ -38,8 +39,10 @@ const Feed = ({ user, token, getFeed }) => {
 
     if(isLoading){
         return (
-            <div>
-                Loading...
+            <div className='weets-feed-special-container'>
+                <div className='weets-feed-notice'>
+                    <Loader />
+                </div>
             </div>
         )
     }

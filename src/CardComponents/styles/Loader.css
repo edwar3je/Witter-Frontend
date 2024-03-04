@@ -1,0 +1,15 @@
+/* Loader formula courtesy of W3 Schools at https://www.w3schools.com/howto/howto_css_loader.asp*/
+
+.loader {
+    border: 30px solid #7f7f7f;
+    border-top: 30px solid #865bd9;
+    border-radius: 50%;
+    width: 250px;
+    height: 250px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

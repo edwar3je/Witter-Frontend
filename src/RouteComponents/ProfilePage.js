@@ -6,6 +6,7 @@ import ProfileFavorites from '../ProfileViewComponents/ProfileFavorites';
 import ProfileTabs from '../ProfileViewComponents/ProfileTabs';
 import ProfileFollowers from '../ProfileViewComponents/ProfileFollowers';
 import ProfileFollowing from '../ProfileViewComponents/ProfileFollowing';
+import Loader from '../CardComponents/Loader';
 import WitterApi from '../api';
 import './styles/ProfilePage.css';
 
@@ -290,12 +291,20 @@ const ProfilePage = ({ user, token, getProfile }) => {
     }
 
     if(isLoading){
+        <div className='profile-page-container'>
+            <div className='profile-load-container'>
+                <Loader />
+            </div>
+        </div>
+    }
+
+    /*if(isLoading){
         return (
             <div>
                 Loading...
             </div>
         )
-    }
+    }*/
 
     return loadProfile(profile);
 };

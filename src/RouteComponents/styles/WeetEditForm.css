@@ -4,6 +4,16 @@
     align-items: flex-start;
 }
 
+.edit-weet-load-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 20px;
+    height: fit-content;
+    width: 500px;
+}
+
 .edit-weet-general-container {
     display: flex;
     flex-direction: column;

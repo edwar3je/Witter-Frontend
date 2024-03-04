@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import WeetCard from '../CardComponents/WeetCard';
+import Loader from '../CardComponents/Loader';
 import './styles/Weet.css';
 
 /** This component renders a div that contains a single WeetCard component instance in the 'single' display state. Upon initial render, the component
@@ -41,11 +42,19 @@ const Weet = ({ user, token, getWeet }) => {
 
     if(isLoading){
         return(
-            <div>
-                Loading...
+            <div className='single-weet-page-container'>
+                <Loader />
             </div>
         )
     }
+
+    /*if(isLoading){
+        return(
+            <div>
+                ...Loading
+            </div>
+        )
+    }*/
 
     if(!individualWeet){
         navigate('/NotFound');

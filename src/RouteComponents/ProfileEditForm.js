@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import ErrorMessage from '../CardComponents/ErrorMessage';
+import Loader from '../CardComponents/Loader';
 import './styles/ProfileEditForm.css';
 
 /** This component renders a form that allows users to edit various parts of their profile. The component uses frontend error
@@ -321,11 +322,21 @@ const ProfileEditForm = ({ user, token, getProfile, editProfile, validateEditPro
 
     if(isLoading){
         return (
+            <div className='edit-profile-page-container'>
+                <div className='edit-profile-load-container'>
+                    <Loader />
+                </div>
+            </div>
+        )
+    }
+
+    /*if(isLoading){
+        return (
             <div>
                 Loading...
             </div>
         )
-    }
+    }*/
 
     if(user && user.handle !== handle){
         navigate('/')

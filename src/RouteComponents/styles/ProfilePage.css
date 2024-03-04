@@ -6,6 +6,16 @@
     gap: 1em;
 }
 
+.profile-load-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 800px;
+    height: fit-content;
+    margin-top: 10px;
+}
+
 .profile-main-container {
     display: flex;
     flex-direction: column;

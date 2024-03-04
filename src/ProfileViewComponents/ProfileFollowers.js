@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+
 import UserCard from '../CardComponents/UserCard';
+import Loader from '../CardComponents/Loader';
 import WitterApi from '../api';
 import './styles/ProfileFollowers.css';
 
@@ -31,11 +33,19 @@ const ProfileFollowers = ({ user, token, handle }) => {
 
     if(isLoading){
         return (
+            <div className='load-followers-container'>
+                <Loader />
+            </div>
+        )
+    }
+
+    /*if(isLoading){
+        return (
             <div>
                 Loading...
             </div>
         )
-    }
+    }*/
 
     if(followers.length >= 1){
         return (

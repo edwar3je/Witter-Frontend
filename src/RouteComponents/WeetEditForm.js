@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import ErrorMessage from '../CardComponents/ErrorMessage';
+import Loader from '../CardComponents/Loader';
 import WitterApi from '../api';
 import './styles/WeetEditForm.css';
 
@@ -200,11 +201,21 @@ const WeetEditForm = ({ user, token, getWeet }) => {
 
     if(isLoading){
         return (
+            <div className='page-container'>
+                <div className='edit-weet-load-container'>
+                    <Loader />
+                </div>
+            </div>
+        )
+    }
+
+    /*if(isLoading){
+        return (
             <div>
                 Loading...
             </div>
         )
-    }
+    }*/
     
     return (
         <div className='page-container'>

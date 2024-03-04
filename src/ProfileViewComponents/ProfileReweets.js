@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import WeetCard from '../CardComponents/WeetCard';
+import Loader from '../CardComponents/Loader';
 import WitterApi from '../api';
 import './styles/ProfileReweets.css';
 
@@ -27,14 +28,22 @@ const ProfileReweets = ({ user, token, handle }) => {
             console.error(error)
         });
     }, [handle]);
-    
+
     if(isLoading){
+        return (
+            <div className='load-reweets-container'>
+                <Loader />
+            </div>
+        )
+    }
+    
+    /*if(isLoading){
         return (
             <div>
                 Loading...
             </div>
         )
-    }
+    }*/
 
     if(reweets.length >= 1){
         return (

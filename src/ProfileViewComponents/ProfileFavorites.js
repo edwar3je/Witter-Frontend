@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import WeetCard from '../CardComponents/WeetCard';
+import Loader from '../CardComponents/Loader';
 import WitterApi from '../api';
 import './styles/ProfileFavorites.css';
 
@@ -30,11 +31,19 @@ const ProfileFavorites = ({ user, token, handle }) => {
 
     if(isLoading){
         return (
+            <div className='load-favorites-container'>
+                <Loader />
+            </div>
+        )
+    }
+
+    /*if(isLoading){
+        return (
             <div>
                 Loading...
             </div>
         )
-    }
+    }*/
 
     if(favorites.length >= 1){
         return (
