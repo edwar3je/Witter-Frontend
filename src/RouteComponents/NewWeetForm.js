@@ -46,6 +46,9 @@ const NewWeetForm = ({ user, token, createWeet }) => {
      */
 
     useEffect(() => {
+        if(!localStorage.getItem('token')){
+            return navigate('/')
+        }
         if(validating){
             const handleValidate = async () => {
                 let workingValidObject = initialValidObject;
@@ -68,7 +71,7 @@ const NewWeetForm = ({ user, token, createWeet }) => {
                     setWeet(initialState);
                     setValidateObject(workingValidObject);
                     setValidating(false);
-                    navigate(`/profile/${user.handle}`)
+                    return navigate(`/profile/${user.handle}`)
                 }
             }
             handleValidate().catch((err) => {
@@ -109,10 +112,6 @@ const NewWeetForm = ({ user, token, createWeet }) => {
     const handleSubmit = e => {
         e.preventDefault();
         setValidating(true);
-    }
-
-    if(!localStorage.getItem('token')){
-        navigate('/')
     }
     
     return (

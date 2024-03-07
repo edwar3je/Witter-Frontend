@@ -36,14 +36,6 @@ const ProfileWeets = ({ user, token, handle }) => {
             </div>
         )
     }
-
-    /*if(isLoading){
-        return (
-            <div>
-                Loading...
-            </div>
-        )
-    }*/
     
     if(weets.length >= 1){
         return (

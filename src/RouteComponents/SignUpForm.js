@@ -67,11 +67,11 @@ const SignUpForm = ({ user, signUp, validateSignUp }) => {
         }
     }
 
-    const navigate = useNavigate();
-
     const [formData, setFormData] = useState(initialState);
     const [validateObject, setValidateObject] = useState(initialValidObject);
     const [validating, setValidating] = useState(false);
+
+    const navigate = useNavigate();
 
     /** useEffect is primarily used to conduct the validation sequence and determine if the data can be submitted to the sign up route.
      *  If the validate object returned from the 'validateSignUp' function contains any 'isValid' keys that have false as a value, the
@@ -82,6 +82,9 @@ const SignUpForm = ({ user, signUp, validateSignUp }) => {
      */
 
     useEffect(() => {
+        if(localStorage.getItem('token')){
+            return navigate('/');
+        }
         if(validating){
             const handleValidate = async () => {
                 let pass = true;
@@ -100,7 +103,7 @@ const SignUpForm = ({ user, signUp, validateSignUp }) => {
                     setFormData(initialState);
                     setValidateObject(initialValidObject);
                     setValidating(false);
-                    navigate('/');
+                    return navigate('/');
                 }
             }
             handleValidate();
@@ -181,71 +184,67 @@ const SignUpForm = ({ user, signUp, validateSignUp }) => {
         e.preventDefault();
         setValidating(true);
     }
-
-    if(user){
-        return navigate('/');
-    } else {
-        return (
-            <div className='page-container'>
-                <div className='sign-up-general-container'>
-                    <div className='sign-up-title-container'>
-                        <h2 className='sign-up-title'>Sign Up</h2>
-                    </div>
-                    <form className='sign-up-input-container' onSubmit={handleSubmit}>
-
-                        <div className='sign-up'>
-                            <div className='input-left-container'>
-                                <label className='sign-up-label' htmlFor='handle'>Handle</label>
-                                <div className='filler'></div>
-                            </div>
-                            <div className='input-right-container'>
-                                <input type='text' className='sign-up' id='handle' name='handle' value={formData.handle} onChange={handleChange}></input>
-                                {loadHandleErrors()}
-                            </div>
-                        </div>
-
-                        <div className='sign-up'>
-                            <div className='input-left-container'>
-                                <label className='sign-up-label' htmlFor='username'>Username</label>
-                                <div className='filler'></div>
-                            </div>
-                            <div className='input-right-container'>
-                                <input type='text' className='sign-up' id='username' name='username' value={formData.username} onChange={handleChange}></input>
-                                {loadUsernameErrors()}
-                            </div>
-                        </div>
-
-                        <div className='sign-up'>
-                            <div className='input-left-container'>
-                                <label className='sign-up-label' htmlFor='password'>Password</label>
-                                <div className='filler'></div>
-                            </div>
-                            <div className='input-right-container'>
-                                <input type='password' className='sign-up' id='password' name='password' value={formData.password} onChange={handleChange}></input>
-                                {loadPasswordErrors()}
-                            </div>
-                        </div>
-
-                        <div className='sign-up'>
-                            <div className='input-left-container'>
-                                <label className='sign-up-label' htmlFor='email'>Email</label>
-                                <div className='filler'></div>
-                            </div>
-                            <div className='input-right-container'>
-                                <input type='text' className='sign-up' id='email' name='email' value={formData.email} onChange={handleChange}></input>
-                                {loadEmailErrors()}
-                            </div>
-                        </div>
-
-                        <div className='button-container'>
-                            <button className='sign-up-submit'>Submit</button>
-                        </div>
-                        
-                    </form>
+    
+    return (
+        <div className='page-container'>
+            <div className='sign-up-general-container'>
+                <div className='sign-up-title-container'>
+                    <h2 className='sign-up-title'>Sign Up</h2>
                 </div>
+                <form className='sign-up-input-container' onSubmit={handleSubmit}>
+
+                    <div className='sign-up'>
+                        <div className='input-left-container'>
+                            <label className='sign-up-label' htmlFor='handle'>Handle</label>
+                            <div className='filler'></div>
+                        </div>
+                        <div className='input-right-container'>
+                            <input type='text' className='sign-up' id='handle' name='handle' value={formData.handle} onChange={handleChange}></input>
+                            {loadHandleErrors()}
+                        </div>
+                    </div>
+
+                    <div className='sign-up'>
+                        <div className='input-left-container'>
+                            <label className='sign-up-label' htmlFor='username'>Username</label>
+                            <div className='filler'></div>
+                        </div>
+                        <div className='input-right-container'>
+                            <input type='text' className='sign-up' id='username' name='username' value={formData.username} onChange={handleChange}></input>
+                            {loadUsernameErrors()}
+                        </div>
+                    </div>
+
+                    <div className='sign-up'>
+                        <div className='input-left-container'>
+                            <label className='sign-up-label' htmlFor='password'>Password</label>
+                            <div className='filler'></div>
+                        </div>
+                        <div className='input-right-container'>
+                            <input type='password' className='sign-up' id='password' name='password' value={formData.password} onChange={handleChange}></input>
+                            {loadPasswordErrors()}
+                        </div>
+                    </div>
+
+                    <div className='sign-up'>
+                        <div className='input-left-container'>
+                            <label className='sign-up-label' htmlFor='email'>Email</label>
+                            <div className='filler'></div>
+                        </div>
+                        <div className='input-right-container'>
+                            <input type='text' className='sign-up' id='email' name='email' value={formData.email} onChange={handleChange}></input>
+                            {loadEmailErrors()}
+                        </div>
+                    </div>
+
+                    <div className='button-container'>
+                        <button className='sign-up-submit'>Submit</button>
+                    </div>
+                        
+                </form>
             </div>
-        )
-    }
+        </div>
+    )
 };
 
 export default SignUpForm;

@@ -27,7 +27,7 @@ const Weet = ({ user, token, getWeet }) => {
 
     useEffect(() => {
         if(!localStorage.getItem('token')){
-            navigate('/');
+            return navigate('/');
         }
         const fetchWeet = async (id, token) => {
             const results = await getWeet(id, token);
@@ -36,7 +36,7 @@ const Weet = ({ user, token, getWeet }) => {
         }
         fetchWeet(id, token).catch((error) => {
             console.error(error);
-            navigate('/NotFound');
+            return navigate('/NotFound');
         });
     }, [token])
 
@@ -48,16 +48,8 @@ const Weet = ({ user, token, getWeet }) => {
         )
     }
 
-    /*if(isLoading){
-        return(
-            <div>
-                ...Loading
-            </div>
-        )
-    }*/
-
-    if(!individualWeet){
-        navigate('/NotFound');
+    /*if(!individualWeet){
+        return navigate('/NotFound');
     } else {
         const { id, weet, author, date, time, stats, userInfo, checks } = individualWeet;
         return (
@@ -65,7 +57,14 @@ const Weet = ({ user, token, getWeet }) => {
                 <WeetCard id={id} weet={weet} author={author} date={date} time={time} stats={stats} userInfo={userInfo} checks={checks} user={user} token={token} setting={'single'} key={id} />
             </div>
         )
-    }
+    }*/
+
+    const { weet, author, date, time, stats, userInfo, checks } = individualWeet;
+    return (
+        <div className='single-weet-page-container'>
+            <WeetCard id={id} weet={weet} author={author} date={date} time={time} stats={stats} userInfo={userInfo} checks={checks} user={user} token={token} setting={'single'} key={id} />
+        </div>
+    )
 };
 
 export default Weet;

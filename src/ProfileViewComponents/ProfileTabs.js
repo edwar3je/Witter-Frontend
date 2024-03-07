@@ -37,14 +37,6 @@ const ProfileTabs = ({ user, token, handle }) => {
         )
     }
 
-    /*if(isLoading){
-        return (
-            <div>
-                Loading...
-            </div>
-        )
-    }*/
-
     if(user.handle !== handle){
         return (
             <h1>You are not allowed to view this page</h1>

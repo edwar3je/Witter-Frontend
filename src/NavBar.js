@@ -10,14 +10,12 @@ import './NavBar.css';
  */
 
 const NavBar = ({ user, logOut }) => {
-    
-    
-    
-    const navigate = useNavigate();
 
     /** A function that logs the user out of their account by resetting the 'token' and 'currentUser' states back to
      *  their initial state and redirecting the user back to the home page.
      */
+
+    const navigate = useNavigate();
     
     const logOutFull = (e) => {
         e.preventDefault();

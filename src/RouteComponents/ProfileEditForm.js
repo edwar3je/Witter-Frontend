@@ -97,8 +97,6 @@ const ProfileEditForm = ({ user, token, getProfile, editProfile, validateEditPro
         }
     };
 
-    const navigate = useNavigate();
-
     const { handle } = useParams();
 
     const [isLoading, setIsLoading] = useState(true);
@@ -108,6 +106,8 @@ const ProfileEditForm = ({ user, token, getProfile, editProfile, validateEditPro
     const [displayDelete, setDisplayDelete] = useState(false);
     const [deleting, setDeleting] = useState(false);
 
+    const navigate = useNavigate();
+
     /** useEffect has three primary functions within this component. The first is to fetch any existing profile data on the initial render
      *  (if it exists). The second is to conduct a validation sequence that either results in form data being submitted to the edit profile
      *  route on the backend, or changing the 'validateObject' state resulting in the rendering of error messages. The final function is
@@ -115,6 +115,12 @@ const ProfileEditForm = ({ user, token, getProfile, editProfile, validateEditPro
       */
 
     useEffect(() => {
+        if(!localStorage.getItem('token')){
+            return navigate('/');
+        }
+        if(user && user.handle !== handle){
+            return navigate('/');
+        }
         if(token && isLoading){
             const fetchProfile = async (handle, token) => {
                 const fetchedProfile = await getProfile(handle, token);
@@ -130,7 +136,7 @@ const ProfileEditForm = ({ user, token, getProfile, editProfile, validateEditPro
             }
             fetchProfile(user.handle, token).catch((error) => {
                 console.error(error);
-                navigate('/NotFound');
+                return navigate('/NotFound');
             });
         } else if(token && validating){
             const handleValidate = async () => {
@@ -149,7 +155,7 @@ const ProfileEditForm = ({ user, token, getProfile, editProfile, validateEditPro
                     setFormData(initialFormState);
                     setValidateObject(initialValidObject);
                     setValidating(false);
-                    navigate(`/profile/${handle}`);
+                    return navigate(`/profile/${handle}`);
                 }
             }
             handleValidate();
@@ -157,7 +163,7 @@ const ProfileEditForm = ({ user, token, getProfile, editProfile, validateEditPro
             const handleDelete = async () => {
                 await deleteAccount(handle, token);
                 setDeleting(false);
-                navigate('/');
+                return navigate('/');
             }
             handleDelete().catch((error) => {
                 console.error(error);
@@ -316,10 +322,6 @@ const ProfileEditForm = ({ user, token, getProfile, editProfile, validateEditPro
         }
     }
 
-    if(!localStorage.getItem('token')){
-        navigate('/')
-    }
-
     if(isLoading){
         return (
             <div className='edit-profile-page-container'>
@@ -328,18 +330,6 @@ const ProfileEditForm = ({ user, token, getProfile, editProfile, validateEditPro
                 </div>
             </div>
         )
-    }
-
-    /*if(isLoading){
-        return (
-            <div>
-                Loading...
-            </div>
-        )
-    }*/
-
-    if(user && user.handle !== handle){
-        navigate('/')
     }
     
     return (

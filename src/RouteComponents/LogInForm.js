@@ -22,7 +22,8 @@ import './styles/LogInForm.css';
  */
 
 const LogInForm = ({ user, logIn }) => {
-    
+
+    const navigate = useNavigate();
 
     const initialState = {
         handle: '',
@@ -39,8 +40,6 @@ const LogInForm = ({ user, logIn }) => {
         }
     }
 
-    const navigate = useNavigate();
-
     const [formData, setFormData] = useState(initialState);
     const [validateObject, setValidateObject] = useState(initialValidateObject);
     const [validating, setValidating] = useState(false);
@@ -52,11 +51,14 @@ const LogInForm = ({ user, logIn }) => {
      */
 
     useEffect(() => {
+        if(localStorage.getItem('token')){
+            return navigate('/');
+        }
         if(validating){
             const handleValidate = async () => {
                 await logIn(formData);
                 setFormData(initialState);
-                navigate('/');
+                return navigate('/');
             }
             handleValidate().catch((err) => {
                 let currValidObject = validateObject;
@@ -106,44 +108,40 @@ const LogInForm = ({ user, logIn }) => {
         e.preventDefault();
         setValidating(true);
     };
-
-    if(user){
-        return navigate('/');
-    } else {
-        return (
-            <div className='page-container'>
-                <div className='log-in-general-container'>
-                    <div className='log-in-title-container'>
-                        <h2>Log In</h2>
-                    </div>
-                    <form className='log-in-input-container' onSubmit={handleSubmit}>
-                        <div className='log-in'>
-                            <div className='input-left-container'>
-                                <label className='log-in-label' htmlFor='handle'>Handle</label>
-                                <div class='filler'></div>
-                            </div>
-                            <div className='input-right-container'>
-                                <input type='text' className='log-in' name='handle' value={formData.handle} onChange={handleChange}></input>
-                            </div>
-                        </div>
-                        <div className='log-in'>
-                            <div className='input-left-container'>
-                                <label className='log-in-label' htmlFor='password'>Password</label>
-                                <div class='filler'></div>
-                            </div>
-                            <div className='input-right-container'>
-                                <input type='password' className='log-in' name='password' value={formData.password} onChange={handleChange}></input>
-                                {loadSignUpError()}
-                            </div>
-                        </div>
-                        <div className='button-container'>
-                            <button className='log-in-submit'>Submit</button>
-                        </div>
-                    </form>
+    
+    return (
+        <div className='page-container'>
+            <div className='log-in-general-container'>
+                <div className='log-in-title-container'>
+                    <h2>Log In</h2>
                 </div>
+                <form className='log-in-input-container' onSubmit={handleSubmit}>
+                    <div className='log-in'>
+                        <div className='input-left-container'>
+                            <label className='log-in-label' htmlFor='handle'>Handle</label>
+                            <div className='filler'></div>
+                        </div>
+                        <div className='input-right-container'>
+                            <input type='text' className='log-in' name='handle' value={formData.handle} onChange={handleChange}></input>
+                        </div>
+                    </div>
+                    <div className='log-in'>
+                        <div className='input-left-container'>
+                            <label className='log-in-label' htmlFor='password'>Password</label>
+                            <div className='filler'></div>
+                        </div>
+                        <div className='input-right-container'>
+                            <input type='password' className='log-in' name='password' value={formData.password} onChange={handleChange}></input>
+                            {loadSignUpError()}
+                        </div>
+                    </div>
+                    <div className='button-container'>
+                        <button className='log-in-submit'>Submit</button>
+                    </div>
+                </form>
             </div>
-        );
-    };
+        </div>
+    );
 };
 
 export default LogInForm;

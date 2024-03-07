@@ -37,6 +37,9 @@ const ProfilePage = ({ user, token, getProfile }) => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        if(!localStorage.getItem('token')){
+            return navigate('/');
+        }
         if(token){
             const fetchProfile = async (handle, token) => {
                 const fetchedProfile = await getProfile(handle, token);
@@ -47,7 +50,7 @@ const ProfilePage = ({ user, token, getProfile }) => {
             }
             fetchProfile(handle, token).catch((error) => {
                 console.error(error);
-                navigate('/NotFound');
+                return navigate('/NotFound');
             });
         }
     }, [handle]);
@@ -286,10 +289,6 @@ const ProfilePage = ({ user, token, getProfile }) => {
         )
     }
 
-    if(!localStorage.getItem('token')){
-        navigate('/');
-    }
-
     if(isLoading){
         <div className='profile-page-container'>
             <div className='profile-load-container'>
@@ -297,14 +296,6 @@ const ProfilePage = ({ user, token, getProfile }) => {
             </div>
         </div>
     }
-
-    /*if(isLoading){
-        return (
-            <div>
-                Loading...
-            </div>
-        )
-    }*/
 
     return loadProfile(profile);
 };

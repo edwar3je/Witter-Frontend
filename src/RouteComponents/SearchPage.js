@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SearchForm from '../IndividualFormComponents/SearchForm';
 import UserCard from '../CardComponents/UserCard';
@@ -23,14 +23,16 @@ const SearchPage = ({ user, token, searchUsers }) => {
     
     const initialState = '';
 
-    const navigate = useNavigate();
-
     const [searchString, setSearchString] = useState(initialState);
     const [users, setUsers] = useState(initialState);
 
-    if(!localStorage.getItem('token')){
-        return navigate('/');
-    }
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if(!localStorage.getItem('token')){
+            return navigate('/');
+        }
+    }, [token])
 
     const fetchUsers = async (searchString, token) => {
         if(searchString !== ''){

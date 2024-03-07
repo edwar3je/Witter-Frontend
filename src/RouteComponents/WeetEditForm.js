@@ -63,11 +63,14 @@ const WeetEditForm = ({ user, token, getWeet }) => {
     */
 
     useEffect(() => {
+        if(!localStorage.getItem('token')){
+            return navigate('/');
+        }
         if(token && isLoading){
             const fetchWeet = async () => {
                 const results = await getWeet(id, token)
                 if(results.author !== user.handle){
-                    navigate('/')
+                    return navigate('/')
                 }
                 let currFormData = formData;
                 currFormData.weet = results.weet;
@@ -76,7 +79,7 @@ const WeetEditForm = ({ user, token, getWeet }) => {
             }
             fetchWeet().catch((error) => {
                 console.error(error);
-                navigate('/NotFound');
+                return navigate('/NotFound');
             });
         }
         else if(submitting){
@@ -100,7 +103,7 @@ const WeetEditForm = ({ user, token, getWeet }) => {
                     await WitterApi.editWeet(id, formData, token);
                     setValidateObject(initialValidObject);
                     setSubmitting(false);
-                    navigate(`/weets/${id}`);
+                    return navigate(`/weets/${id}`);
                 }
             }
             handleEdit().catch((error) => {
@@ -110,7 +113,7 @@ const WeetEditForm = ({ user, token, getWeet }) => {
         else if(deleting){
             const handleDelete = async () => {
                 await WitterApi.deleteWeet(id, token);
-                navigate(`/profile/${user.handle}`);
+                return navigate(`/profile/${user.handle}`);
             }
             handleDelete().catch((error) => {
                 console.error(error)
@@ -195,10 +198,6 @@ const WeetEditForm = ({ user, token, getWeet }) => {
         }
     }
 
-    if(!localStorage.getItem('token')){
-        navigate('/');
-    }
-
     if(isLoading){
         return (
             <div className='page-container'>
@@ -208,14 +207,6 @@ const WeetEditForm = ({ user, token, getWeet }) => {
             </div>
         )
     }
-
-    /*if(isLoading){
-        return (
-            <div>
-                Loading...
-            </div>
-        )
-    }*/
     
     return (
         <div className='page-container'>

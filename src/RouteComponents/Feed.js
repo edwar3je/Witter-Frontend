@@ -17,25 +17,26 @@ const Feed = ({ user, token, getFeed }) => {
      */
 
     useEffect(() => {
+
+        /** If a token is not stored in localStorage, the user is deemed not signed in and is redirected to
+        *  the home page.
+        */
+
+        if(!localStorage.getItem('token')){
+            return navigate('/');
+        }
+        
         if(token){
             const fetchWeets = async (token) => {
-                const results = await getFeed(token)
+                const results = await getFeed(token);
                 setWeets(results);
-                setIsLoading(false)
+                setIsLoading(false);
             }
             fetchWeets(token).catch((error) => {
                 console.error(error);
             })
         }
     }, [token]);
-
-    /** If a token is not stored in localStorage, the user is deemed not signed in and is redirected to
-     *  the home page.
-     */
-
-    if(!localStorage.getItem('token')){
-        navigate('/');
-    }
 
     if(isLoading){
         return (

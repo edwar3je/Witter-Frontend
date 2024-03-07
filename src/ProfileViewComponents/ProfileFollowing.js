@@ -37,14 +37,6 @@ const ProfileFollowing = ({ user, token, handle }) => {
             </div>
         )
     }
-
-    /*if(isLoading){
-        return (
-            <div>
-                Loading...
-            </div>
-        )
-    }*/
     
     if(following.length >= 1){
         return (

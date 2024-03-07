@@ -37,14 +37,6 @@ const ProfileFavorites = ({ user, token, handle }) => {
         )
     }
 
-    /*if(isLoading){
-        return (
-            <div>
-                Loading...
-            </div>
-        )
-    }*/
-
     if(favorites.length >= 1){
         return (
             <div className='favorites-container'>
